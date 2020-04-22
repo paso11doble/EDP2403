@@ -60,7 +60,7 @@ points(covids)
 setwd("C:/LAB/")
 load("point_pattern.RData") (funzione per inserire l'RData di ieri)
 
-ls()
+ls()  (per vedere cosa c'è dentro)
 
 plot(d)
 # palette (colori per rappresentare la mappa)
@@ -86,3 +86,54 @@ N.B. la mappa è relativa ai dati Covid di febbraio!
 cl <- colorRampPalette(c('blue', 'light blue', 'light green', 'yellow')) (100)
 plot(d, col=cl)
 plot(coastlines, add=T, col="green")
+
+
+-----------------------------------------------------------------------------------------------------------------------
+
+(Pratica del 22/04/20) PER SISTEMARE GLI APPUNTI CONTROLLARE GLI SCREEN SUL TABLET E R_CODE_TEMP_INTERPOLATION
+#exercise: caricare il workspace point_pattern.RData load("...") e creare un grafico di densità
+setwd("C:/lab/")
+load("point_pattern.RData")
+ls()
+plot(d)
+
+# INTERPOLAZIONE
+
+head(covid)
+con "covid" o "view(covid)" posso vedere tutta la tabella
+
+funzione marks          
+marks(covids) <- covid$cases
+funzione smooth (per creare una mappa "continua" dei casi)
+s <- Smooth(covids)
+plot(s)
+
+exercise: plot(s) with points and coastlines
+cl5 <- colorRampPalette(c('cyan', 'purple', 'red')) (200)
+plot(d, col=cl5, main="density")
+points(covids)
+coastlines <- readOGR("ne_10m_coastline.shp")
+plot(coastlines, add=T)
+
+funzione text
+
+# MAPPA FINALE
+
+----------------------------------------------------------------------------------------------------------
+# esercizio San Marino
+
+load("Tesi.RData")
+ls()
+head(Tesi)
+attach(Tesi)   (dopo aver richiamato library(spatstat))
+
+summary(Tesi)
+# x varia da 12.42 a 12.46
+# y varia da 43.91 a 43.94
+
+# per creare il point pattern: x, y, c(xmin, xmax), c(ymin, ymax)
+Tesippp <- ppp(Longitude, Latitude, c(12.41, 12.47), c(43.9, 43.95)) (abbiamo aumentato un pò i margini)
+
+# per la densità: dT <- density(Tesippp)
+plot(dT)
+points(Tesippp, col="green")
