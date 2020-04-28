@@ -120,7 +120,7 @@ funzione text
 # MAPPA FINALE
 
 ----------------------------------------------------------------------------------------------------------
-# esercizio San Marino
+# esercizio San Marino (Pratica del 28/04/20)
 
 load("Tesi.RData")
 ls()
@@ -137,3 +137,71 @@ Tesippp <- ppp(Longitude, Latitude, c(12.41, 12.47), c(43.9, 43.95)) (abbiamo au
 # per la densità: dT <- density(Tesippp)
 plot(dT)
 points(Tesippp, col="green")
+
+
+
+setwd("C:/lab/")
+load("sanmarino.RData")
+ls()
+
+# dT= density map
+# Tesi= original dataset
+# Tesippp= point pattern
+# meuse
+# panel.correlations
+# panel.smoothing
+
+library(spatstat)
+plot(dT)
+points(Tesippp, col="green")
+head(Tesi)
+
+funzione marks: associa i valori della variabile che vogliamo interpolare (es. species richness) al point pattern
+(quindi 48 e 43 per Montalbo1 e Montalbo2)
+marks(Tesippp) <- Tesi$Species_richness
+
+funzione ?Smooth: per vedere le eventuali variazioni
+interpol <- Smooth(Tesippp)
+
+plot(interpol)
+
+points(Tesippp, col="green")
+
+library(rgdal)
+
+sanmarino <-  readOGR("San_Marino.shp")
+
+plot(sanmarino)
+plot(interpol, add=T): aggiungo questa mappa alla precedente
+
+points(Tesippp, col="green") 
+
+plot(sanmarino, add=T): sovrappongo i confini RSM alle mappe precedenti
+
+# Exercise: plot multiframe (2 righe, 1 colonna) di densità e interpolazione (con titolo, indicato con "main")
+par(mfrow=c(2,1))
+
+plot(dT, main="Density of points")
+points(Tesippp, col="green")
+plot(interpol, main="Estimate of species richness")
+points(Tesippp, col="green")
+
+# Exercise: plot multiframe (2 colonne, 1 riga) di densità e interpolazione
+
+basta invertire i numeri del par:
+par(mfrow=c(1,2))
+plot(dT, main="Density of points")
+points(Tesippp, col="green")
+plot(interpol, main="Estimate of species richness")
+points(Tesippp, col="green")
+
+
+
+
+
+
+
+
+
+
+
