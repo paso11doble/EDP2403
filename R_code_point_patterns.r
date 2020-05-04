@@ -1,29 +1,28 @@
 # CODICI PER ANALISI DEI POINT PATTERNS (pattern legati ai punti)
 
-install.packages("ggplot2") oppure library(ggplot2) [comando alternativo a library: require]
-install.packages("spatstat")
+install.packages("ggplot2") oppure library(ggplot2) (se già presente; comando alternativo a library: require)
+install.packages("spatstat") oppure library(spatstat)
 
-# setwd("C:/lab/") per Windows
+# setwd("C:/lab/")
 
 # importare dati
 covid <- read.table("covid_agg.csv", head=T)
 
 head(covid)
 
-plot(covid$country, covid$cases)
-il dollaro collega una colonna al dataset
+plot(covid$country, covid$cases) (Ricorda: $ collega una colonna al dataset)
 # attach(covid)
 # plot(country, cases)
 
+funzione "las" serve per cambiare la disposizione delle etichette
 plot(covid$country, covid$cases, las=0) #parallele agli assi
 plot(covid$country, covid$cases, las=1) #orizzontali
 plot(covid$country, covid$cases, las=2) #perpendicolari
 plot(covid$country, covid$cases, las=3) #verticali
-las serve per cambiare la disposizione delle etichette
 
 plot(covid$country, covid$cases, las=3) #vertical labels
 
-come diminuire la dimensione delle etichette (usare funzione cex.axis)
+come diminuire la dimensione delle etichette (funzione "cexaxis"
 plot(covid$country, covid$cases, las=3, cex.lab=0.5, cex.axis=0.5) #vertical labels
 
 # ggplot2
