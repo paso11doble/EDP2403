@@ -1,9 +1,9 @@
-# CODICI PER ANALISI DEI POINT PATTERNS (pattern legati ai punti)
+# CODICI PER ANALISI DEI POINT PATTERNS (pattern legati ai punti) (Pratica del 31/03/20)
 
 install.packages("ggplot2") oppure library(ggplot2) (se già presente; comando alternativo a library: require)
 install.packages("spatstat") oppure library(spatstat)
 
-# setwd("C:/lab/")
+# setwd("C:/LAB/")
 
 # importare dati
 covid <- read.table("covid_agg.csv", head=T)
@@ -22,7 +22,7 @@ plot(covid$country, covid$cases, las=3) #verticali
 
 plot(covid$country, covid$cases, las=3) #vertical labels
 
-come diminuire la dimensione delle etichette (funzione "cexaxis"
+funzione "cex.axis" serve per diminuire la dimensione delle etichette
 plot(covid$country, covid$cases, las=3, cex.lab=0.5, cex.axis=0.5) #vertical labels
 
 # ggplot2
@@ -31,14 +31,14 @@ head(mpg)
 
 # data (il file da utilizzare è mpg)
 # aestetics (variabili che compongono l'estetica del grafico)
-# type (geometria, indicata dopo il +!)
+# type (definisce la geometria, indicata dopo il "+")
 ggplot(mpg, aes(x=displ,y=hwy)) + geom_point()
 ggplot(mpg, aes(x=displ,y=hwy)) + geom_line()
 ggplot(mpg, aes(x=displ,y=hwy)) + geom_polygon()
 
 # ggplot di covid
 ggplot(covid, aes(x=lon, y=lat, size=cases)) + geom_point()
-media dati di ogni Paese, di cui si prende come riferimento il centroide
+è una media dati di ogni Paese, di cui si prende come riferimento il centroide
 
 # density
 # create dataset for spatstat
@@ -47,6 +47,7 @@ covids <- ppp(lon, lat, c(-180, 180), c(-90, 90))
 
 > ppp(x.coordinates, y.coordinates, x.range, y.range)
 
+
 d <- density(covids)
 
 plot(d)
@@ -54,12 +55,12 @@ points(covids)
 
 --------------------------------------------------------------------------------------------------------------
 
-# Save the .RData (file salvato nella cartella LAB del disco locale (C:))
+# Save the .RData (file salvato in LAB nel disco locale (C:)) 
 
-setwd("C:/LAB/")
+setwd("C:/LAB/")                                                              (Pratica dell'01/04/20)
 load("point_pattern.RData") (funzione per inserire l'RData di ieri)
 
-ls()  (per vedere cosa c'è dentro)
+ls()  (funzione per vedere cosa contiene)
 
 plot(d)
 # palette (colori per rappresentare la mappa)
@@ -67,6 +68,10 @@ cl <- colorRampPalette(c('yellow', 'orange', 'red')) (100)
 plot(d, col=cl)
 
 # Exercise: plot della mappa della densità dal verde al blu
+cl <- colorRampPalette(c('green', 'light blue', 'blue')) (100)
+plot(d, col=cl)
+
+points(covids)
 
 
 coastlines <- readOGR("ne_10m_coastline.shp") (devo utilizzare una funzione della libreria RGDAL, per leggere files vettoriali)
