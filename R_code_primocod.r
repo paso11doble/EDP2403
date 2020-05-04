@@ -4,7 +4,7 @@
 
 install.packages("sp")
 library(sp)
-# require(sp) è un altro comando per far partire le librerie
+# require(sp): è un comando alternativo per caricare le librerie
 
 data(meuse)
 meuse
@@ -21,23 +21,26 @@ pairs(~ cadmium + copper + lead , data = meuse)
 # Exercise: cadmium copper lead zinc
 pairs(~ cadmium + copper + lead + zinc , data = meuse)
 
-freccia in alto tastiera: riprende l'ultimo comando usato
+"freccia ↑": riprende l'ultimo comando usato
 
-parentesi quadre per fare un subset
+"parentesi [...]": servono per fare un subset
 pairs(meuse[,3:6])
 
 pairs(meuse[,3:6], col="green") per cambiare colore
 
-pairs(meuse[,3:6], col="green", pch=19)
+pairs(meuse[,3:6], col="green", pch=19) per selezionare il "point shape"
 
-pairs(meuse[,3:6], col="green", pch=19, cex=3) per aumentare dimensioni punti
+pairs(meuse[,3:6], col="green", pch=19, cex=3) per aumentare dimensioni punti (*cex=character exageration)
 
-pairs(meuse[,3:6], col="green", pch=19, cex=3, main="Primo pairs") per aumentare dimensioni punti
+pairs(meuse[,3:6], col="green", pch=19, cex=3, main="Primo pairs") per dare un titolo 
 
-# Exercise: fare lo stesso aggiungendo elevation (7° carattere)
+# Exercise: fare lo stesso aggiungendo "elevation" (7° carattere)
 pairs(meuse[,3:7], col="green", pch=19, cex=3, main="Primo pairs")
 
 -------------------------------------------------------------------------------------------------
+# panels from outside
+
+
 panel.correlations <- function(x, y, digits=1, prefix="", cex.cor)
 {
     usr <- par("usr"); on.exit(par(usr))
@@ -67,7 +70,6 @@ panel.smoothing <- function (x, y, col = par("col"), bg = NA, pch = par("pch"),
 
  
 
-
 panel.histograms <- function(x, ...)
 {
     usr <- par("usr"); on.exit(par(usr))
@@ -82,13 +84,14 @@ panel.histograms <- function(x, ...)
 
 pairs(meuse[,3:6], lower.panel = panel.correlations, upper.panel = panel.smoothing, diag.panel = panel.istograms)
 
-
 # Exercise: mettere come lower lo smoothing, come upper le correlations, come diagonal gli istogrammi
+pairs(meuse[,3:6], lower.panel = panel.smoothing, upper.panel = panel.correlations, diag.panel = panel.istograms)
+
 
 # funzione plot
 
-plot(meuse$cadmium , meuse$copper)
-$ serve per collegare più variabili
+plot(meuse$cadmium, meuse$copper)
+"dollaro $": serve per collegare più variabili
 
 attach(meuse)
 plot(cadmium, copper)
