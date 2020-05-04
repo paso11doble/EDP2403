@@ -119,7 +119,7 @@ plot(coastlines, add=T)
 
 (Pratica del 22/04/20)
 
-# Exercise: caricare il workspace point_pattern.RData load("...") e creare un grafico di densità
+# Exercise: caricare il workspace point_pattern.RData [load("...")] e creare un grafico di densità
 
 library(spatstat)
 library(rgdal) # per coastlines
@@ -155,10 +155,9 @@ points(covids)
 coastlines <- readOGR("ne_10m_coastline.shp")
 plot(coastlines, add=T)
 
-funzione "text"
 text(covids)
 
-# MAPPA FINALE
+# MAPPA FINALE (con plot(d) e plot(s) sovrapposti)
 par(mfrow=c(2,1))
 # densità
 cl5 <- colorRampPalette(c('cyan', 'purple', 'red')) (200)
@@ -198,7 +197,10 @@ points(Tesippp, col="green")
 colors()
 
 
-setwd("C:/lab/")
+
+setwd("C:/LAB/")
+library(spatstat)
+
 load("sanmarino.RData")
 ls()
 
@@ -209,57 +211,43 @@ ls()
 # panel.correlations
 # panel.smoothing
 
-library(spatstat)
 plot(dT)
 points(Tesippp, col="green")
 head(Tesi)
 
-funzione marks: associa i valori della variabile che vogliamo interpolare (es. species richness) al point pattern
-(quindi 48 e 43 per Montalbo1 e Montalbo2)
 marks(Tesippp) <- Tesi$Species_richness
+funzione "marks" (vedi sopra): associa i valori della variabile che vogliamo interpolare (es. species richness) al point pattern
+(quindi 48 e 43 per Montalbo1 e Montalbo2)
 
-funzione ?Smooth: per vedere le eventuali variazioni
+funzione "Smooth": serve per per vedere le eventuali variazioni
 interpol <- Smooth(Tesippp)
 
 plot(interpol)
 
 points(Tesippp, col="green")
 
-library(rgdal)
 
+library(rgdal)
 sanmarino <-  readOGR("San_Marino.shp")
 
 plot(sanmarino)
 plot(interpol, add=T): aggiungo questa mappa alla precedente
 
 points(Tesippp, col="green") 
-
 plot(sanmarino, add=T): sovrappongo i confini RSM alle mappe precedenti
+
 
 # Exercise: plot multiframe (2 righe, 1 colonna) di densità e interpolazione (con titolo, indicato con "main")
 par(mfrow=c(2,1))
-
 plot(dT, main="Density of points")
 points(Tesippp, col="green")
 plot(interpol, main="Estimate of species richness")
 points(Tesippp, col="green")
 
 # Exercise: plot multiframe (2 colonne, 1 riga) di densità e interpolazione
-
 basta invertire i numeri del par:
 par(mfrow=c(1,2))
 plot(dT, main="Density of points")
 points(Tesippp, col="green")
 plot(interpol, main="Estimate of species richness")
 points(Tesippp, col="green")
-
-
-
-
-
-
-
-
-
-
-
