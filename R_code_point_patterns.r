@@ -74,13 +74,14 @@ plot(d, col=cl)
 points(covids)
 
 
-coastlines <- readOGR("ne_10m_coastline.shp") (devo utilizzare una funzione della libreria RGDAL, per leggere files vettoriali)
 
-quindi prima di dare il comando readOGR devo fare:
-install.packages("rgdal")
-library(rgdal)
+coastlines <- readOGR("ne_10m_coastline.shp") 
 
-plot(coastlines, add=T) [inseriamo le coastlines e le aggiungiamo al plot precedente]
+(devo utilizzare una funzione della libreria RGDAL, per leggere files vettoriali)
+quindi prima di dare il comando  "readOGR" devo fare:
+install.packages("rgdal") oppure library(rgdal)
+
+plot(coastlines, add=T) (inseriamo le coastlines e le aggiungiamo al plot precedente)
 
 points(covids) (funzione per inserire i centroidi di ieri)
 
@@ -91,45 +92,98 @@ cl <- colorRampPalette(c('blue', 'light blue', 'light green', 'yellow')) (100)
 plot(d, col=cl)
 plot(coastlines, add=T, col="green")
 
+N.B. posso fare in vari modi cambiando colori e gamma di colori!
+
+cl2 <- colorRampPalette(c('red', 'orange', 'yellow', 'green', 'blue')) (800)
+plot(d, col=cl2)
+plot(coastlines, add=T)
+
+cl3 <- colorRampPalette(c('blue', 'violet', 'green')) (200)
+plot(d, col=cl3)
+plot(coastlines, add=T)
+
+cl4 <- colorRampPalette(c('violet', 'yellow', 'green')) (100)
+plot(d, col=cl4)
+plot(coastlines, add=T)
+
+cl5 <- colorRampPalette(c('darkcyan', 'purple', 'red')) (200)
+plot(d, col=cl5)
+plot(coastlines, add=T)
+
+cl6 <- colorRampPalette(c('white', 'light blue', 'darkcyan', 'red', 'orange', 'yellow')) (150)
+plot(d, col=cl6)
+plot(coastlines, add=T)
+
 
 -----------------------------------------------------------------------------------------------------------------------
 
-(Pratica del 22/04/20) PER SISTEMARE GLI APPUNTI CONTROLLARE GLI SCREEN SUL TABLET E R_CODE_TEMP_INTERPOLATION
-#exercise: caricare il workspace point_pattern.RData load("...") e creare un grafico di densità
-setwd("C:/lab/")
+(Pratica del 22/04/20)
+
+# Exercise: caricare il workspace point_pattern.RData load("...") e creare un grafico di densità
+
+library(spatstat)
+library(rgdal) # per coastlines
+
+setwd("C:/LAB/")
 load("point_pattern.RData")
 ls()
 plot(d)
 
-# INTERPOLAZIONE
+cl5 <- colorRampPalette(c('cyan', 'purple', 'red')) (200)
+plot(d, col=cl5)
+points(covids)
+coastlines <- readOGR("ne_10m_coastline.shp")
+plot(coastlines, add=T)
+
+
+
+# ANALISI D'INTERPOLAZIONE
 
 head(covid)
 con "covid" o "view(covid)" posso vedere tutta la tabella
 
-funzione marks          
 marks(covids) <- covid$cases
-funzione smooth (per creare una mappa "continua" dei casi)
+
+funzione "smooth" serve per creare una mappa "continua" dei casi
 s <- Smooth(covids)
 plot(s)
 
-exercise: plot(s) with points and coastlines
+# Exercise: plot(s) with points and coastlines
+cl5 <- colorRampPalette(c('cyan', 'purple', 'red')) (200)
+plot(s, col=cl5, main="estimate of cases")
+points(covids)
+coastlines <- readOGR("ne_10m_coastline.shp")
+plot(coastlines, add=T)
+
+funzione "text"
+text(covids)
+
+# MAPPA FINALE
+par(mfrow=c(2,1))
+# densità
 cl5 <- colorRampPalette(c('cyan', 'purple', 'red')) (200)
 plot(d, col=cl5, main="density")
 points(covids)
 coastlines <- readOGR("ne_10m_coastline.shp")
 plot(coastlines, add=T)
+# interpolazione del numero di casi
+cl5 <- colorRampPalette(c('cyan', 'purple', 'red')) (200)
+plot(s, col=cl5, main="estimate of cases")
+points(covids)
+coastlines <- readOGR("ne_10m_coastline.shp")
+plot(coastlines, add=T)
 
-funzione text
-
-# MAPPA FINALE
 
 ----------------------------------------------------------------------------------------------------------
-# esercizio San Marino (Pratica del 28/04/20)
+
+# Esercizio San Marino (Pratica del 28/04/20)
+setwd("C:/LAB/")
+library(spatstat)
 
 load("Tesi.RData")
 ls()
 head(Tesi)
-attach(Tesi)   (dopo aver richiamato library(spatstat))
+attach(Tesi)
 
 summary(Tesi)
 # x varia da 12.42 a 12.46
@@ -141,7 +195,7 @@ Tesippp <- ppp(Longitude, Latitude, c(12.41, 12.47), c(43.9, 43.95)) (abbiamo au
 # per la densità: dT <- density(Tesippp)
 plot(dT)
 points(Tesippp, col="green")
-
+colors()
 
 
 setwd("C:/lab/")
