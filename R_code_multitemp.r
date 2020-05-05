@@ -1,4 +1,4 @@
-# R code: analisi multitemporale di variazione di land cover (pratica del 29/04/20)
+# R code: analisi multitemporale di variazione di copertura del suolo (Pratica del 29/04/20)
    (utilizzo file deforestazione Foresta Amazzonica, Mato Grosso)
 
 setwd("C:/LAB/")
@@ -119,4 +119,41 @@ output <- data.frame(cover,before,after)
 View(output)
 
 
+----------------------------------------------------------------------------------------------------------------
+# R code: analisi multitemporale di variazione di copertura del suolo (Pratica del 05/05/20)
 
+setwd("C:/LAB/")
+load("defor.RData")        (vedi appunti 29/04, oppure download da IOL)
+ls()
+
+library(raster)
+par(mfrow=c(1,2))
+cl <- colorRampPalette(c('black','green'))(100) #
+plot(d1c$map, col=cl)
+plot(d2c$map, col=cl)     (N.B. i colori in legenda potrebbero essere invertiti)
+
+output
+       cover before after
+1 Agriculture   10.9  48.2
+2      Forest   89.1  51.8
+
+library(ggplot2)
+ggplot(output, aes(x=cover, y=before, color=cover)) + geom_bar(stat="identity", fill="white")
+
+x= copertura (agricoltura+foresta)
+y= % copertura prima della deforestazione
+per "identity": prendiamo direttamente i valori del colore (=copertura)
+
+# Exercise: plot the histograms of the land cover after deforestation
+ggplot(output, aes(x=cover, y=after, color=cover)) + geom_bar(stat="identity", fill="white")
+
+install.packages("gridExtra") (N.B. "par" con ggplot non funziona!)
+require(gridExtra)
+
+# grid.arrange(plot1, plot2, nrow = 1)
+
+grafico1 <- ggplot(output, aes(x=cover, y=before, color=cover)) + geom_bar(stat="identity", fill="white")
+grafico2 <- ggplot(output, aes(x=cover, y=after, color=cover)) + geom_bar(stat="identity", fill="white")
+
+# Exercise: use "grid.arrange" to plot the two graphs
+grid.arrange(grafico1, grafico2, nrow = 1)
