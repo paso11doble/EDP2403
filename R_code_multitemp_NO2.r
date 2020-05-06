@@ -3,7 +3,7 @@
 setwd("C:/LAB/")
 library(raster)
 
-funzione "raster": per importare le singole immagini
+funzione "raster": la utilizziamo per importare le singole immagini
 EN01 <- raster("EN_0001.png")
 plot(EN01)
 
@@ -34,7 +34,6 @@ ls()
 [28] "panel.smoothing"    "percent1"           "percent2"          
 [31] "totd1"              "totd2"    
 
-
 cl <- colorRampPalette(c('red','orange','yellow'))(100) # 
 plot(EN01, col=cl)
 plot(EN13, col=cl)
@@ -44,16 +43,18 @@ plot(EN01, col=cl)
 plot(EN13, col=cl)
 
 
-# difference (between EN13 and EN01)
+# differenza 
 
 difno2 <- EN13 - EN01
+
 cldif <- colorRampPalette(c('blue','black','yellow'))(100) # 
 plot(difno2, col=cldif)
 
-(blue: differenze minori NO2, yellow: differenze maggiori NO2)
+# blue: differenze minori NO2 
+# yellow: differenze maggiori NO2
 
 # Exercise: plot all the images
-(le immagini sono 13, quindi col "par" selezioneremo 4 righe e 4 colonne!)
+(N.B. le immagini sono 13, quindi col "par" dobbiamo selezionare 4 righe e 4 colonne!)
 par(mfrow=c(4,4))
 plot(EN01, col=cl)
 plot(EN02, col=cl)
@@ -75,14 +76,26 @@ plot(EN13, col=cl)
 
 setwd("C:/LAB/")
 library(raster)
-load("multitemp.NO2")
-     [in alternativa: load("EN.RData")  (download da IOL)]
+load("multitemp.NO2")              [in alternativa: load("EN.RData")  (download da IOL)]
+
 ls()
+ [1] "after"              "before"             "cl"                
+ [4] "cldif"              "cover"              "d1c"               
+ [7] "d2c"                "defor1"             "defor2"            
+[10] "difno2"             "EN01"               "EN02"              
+[13] "EN03"               "EN04"               "EN05"              
+[16] "EN06"               "EN07"               "EN08"              
+[19] "EN09"               "EN10"               "EN11"              
+[22] "EN12"               "EN13"               "grafico1"          
+[25] "grafico2"           "meuse"              "output"            
+[28] "p1"                 "panel.correlations" "panel.smoothing"   
+[31] "percent1"           "percent2"           "totd1"             
+[34] "totd2"             
 
-funzione "lapply": non viene applicata ad un singolo file ma formula un ciclo, apporta assieme diversi dati/vettori
+funzione "lapply": non viene applicata ad un singolo file (come per "raster") ma formula un "ciclo", apporta assieme diversi dati/vettori
 
-creare una cartella all'interno di LAB ("esa_NO2") e importare tutti e 13 i PNG
 setwd("C:/LAB/esa_NO2")
+[creare una cartella all'interno di LAB ("esa_NO2") e importare tutti e 13 i PNG]
 
 funzione "list.files": serve per fare una lista di files con attributi simili (in questo caso PNG)
 rlist <- list.files(pattern=".png")
@@ -91,11 +104,11 @@ rlist
  [1] "EN_0001.png" "EN_0002.png" "EN_0003.png" "EN_0004.png" "EN_0005.png"
  [6] "EN_0006.png" "EN_0007.png" "EN_0008.png" "EN_0009.png" "EN_0010.png"
 [11] "EN_0011.png" "EN_0012.png" "EN_0013.png"
-(in questo modo visualizziamo solo i files PNG!)
+(in questo modo visualizziamo solo i PNG!)
 
 alla funzione "lapply" associamo "raster" (per le immagini satellitari)
-lapply(rlist, raster)
 listafinale <- lapply(rlist, raster)
+
 listafinale
 
 funzione "stack": dalle 13 immagini satellitari creiamo un'unica banda
