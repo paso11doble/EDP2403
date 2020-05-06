@@ -71,7 +71,35 @@ plot(EN13, col=cl)
 
 ----------------------------------------------------------------------------------------------------------------
 
-# R code for analysing NO2 data from ESA - January to March 2020 (Pratica del 05/05/20)
+# R code for analysing NO2 data from ESA (Pratica del 06/05/20)
 
 setwd("C:/LAB/")
 library(raster)
+load("multitemp.NO2")
+     [in alternativa: load("EN.RData")  (download da IOL)]
+ls()
+
+funzione "lapply": non viene applicata ad un singolo file ma formula un ciclo, apporta assieme diversi dati/vettori
+
+creare una cartella all'interno di LAB ("esa_NO2") e importare tutti e 13 i PNG
+setwd("C:/LAB/esa_NO2")
+
+funzione "list.files": serve per fare una lista di files con attributi simili (in questo caso PNG)
+rlist <- list.files(pattern=".png")
+
+rlist                                                     
+ [1] "EN_0001.png" "EN_0002.png" "EN_0003.png" "EN_0004.png" "EN_0005.png"
+ [6] "EN_0006.png" "EN_0007.png" "EN_0008.png" "EN_0009.png" "EN_0010.png"
+[11] "EN_0011.png" "EN_0012.png" "EN_0013.png"
+(in questo modo visualizziamo solo i files PNG!)
+
+alla funzione "lapply" associamo "raster" (per le immagini satellitari)
+lapply(rlist, raster)
+listafinale <- lapply(rlist, raster)
+listafinale
+
+funzione "stack": dalle 13 immagini satellitari creiamo un'unica banda
+EN <- stack(listafinale)
+
+cl <- colorRampPalette(c('red','orange','yellow'))(100) # 
+plot(EN, col=cl)
