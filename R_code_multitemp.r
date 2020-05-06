@@ -185,7 +185,6 @@ grafico2 <- ggplot(output, aes(x=cover, y=after, color=cover)) + geom_bar(stat="
   
 grid.arrange(grafico1, grafico2, nrow = 1)
 
-
 grafico1 <- ggplot(output, aes(x=cover, y=before, color=cover)) + geom_bar(stat="identity", fill="white") + ylim(0, 100)
 grafico2 <- ggplot(output, aes(x=cover, y=after, color=cover)) + geom_bar(stat="identity", fill="white") + ylim(0, 100)
 
