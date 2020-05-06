@@ -69,3 +69,9 @@ plot(EN11, col=cl)
 plot(EN12, col=cl)
 plot(EN13, col=cl)
 
+----------------------------------------------------------------------------------------------------------------
+
+# R code for analysing NO2 data from ESA - January to March 2020 (Pratica del 05/05/20)
+
+setwd("C:/LAB/")
+library(raster)
