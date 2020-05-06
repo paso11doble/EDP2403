@@ -120,6 +120,7 @@ View(output)
 
 
 ----------------------------------------------------------------------------------------------------------------
+
 # R code: analisi multitemporale di variazione di copertura del suolo (Pratica del 05/05/20)
 
 setwd("C:/LAB/")
@@ -157,3 +158,40 @@ grafico2 <- ggplot(output, aes(x=cover, y=after, color=cover)) + geom_bar(stat="
 
 # Exercise: use "grid.arrange" to plot the two graphs
 grid.arrange(grafico1, grafico2, nrow = 1)
+
+----------------------------------------------------------------------------------------------------------------
+
+# R code: analisi multitemporale di variazione di copertura del suolo (Pratica del 06/05/20, review di ieri)
+
+setwd("C:/LAB/")
+require(raster)
+require(ggplot2)
+require(gridExtra)
+
+load("defor.RData") 
+cover <- c("Agriculture","Forest")
+before <- c(10.9,89.1)
+after <- c(48.2,51.8)
+output <- data.frame(cover,before,after)
+output
+        cover before after
+1 Agriculture   10.9  48.2
+2      Forest   89.1  51.8
+
+grafico1 <- ggplot(output, aes(x=cover, y=before, color=cover)) +
++ geom_bar(stat="identity", fill="white")
+grafico2 <- ggplot(output, aes(x=cover, y=after, color=cover)) +
++ geom_bar(stat="identity", fill="white")
+  
+grid.arrange(grafico1, grafico2, nrow = 1)
+
+
+grafico1 <- ggplot(output, aes(x=cover, y=before, color=cover)) + 
++ geom_bar(stat="identity", fill="white") +
++ ylim(0, 100)
+grafico2 <- ggplot(output, aes(x=cover, y=after, color=cover)) + 
++ geom_bar(stat="identity", fill="white") +
++ ylim(0, 100)
+
+# Exercise: use grid.arrange to plot the two graphs 
+> grid.arrange(grafico1, grafico2, nrow = 1)
