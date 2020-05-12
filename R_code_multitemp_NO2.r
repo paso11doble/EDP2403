@@ -147,5 +147,5 @@ boxplot(EN)
 boxplot(EN,horizontal=T)
 boxplot(EN,horizontal=T,axes=T)
 boxplot(EN,horizontal=T,axes=T,outline=F)
-
+boxplot(EN,horizontal=T,axes=F,outline=F)
 
