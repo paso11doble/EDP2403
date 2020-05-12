@@ -116,3 +116,36 @@ EN <- stack(listafinale)
 
 cl <- colorRampPalette(c('red','orange','yellow'))(100) # 
 plot(EN, col=cl)
+
+----------------------------------------------------------------------------------------------------------------
+
+# R code for analysing NO2 data from ESA (Pratica del 12/05/20)
+ 
+setwd("C:/LAB/esa_NO2") 
+require(raster)
+
+rlist <- list.files(pattern=".png") 
+rlist 
+
+listafinale <- lapply(rlist, raster)
+# brick
+ 
+EN <- stack(listafinale)
+# stack
+ 
+difEN <- EN$EN_0013 - EN$EN_0001
+differenza tra il valore del pixel della 13ma immagine e il valore della 1a
+ 
+cld <- colorRampPalette(c('blue','white','red'))(100) # 
+plot(difEN, col=cld)
+ 
+cl <- colorRampPalette(c('red','orange','yellow'))(100) # 
+plot(EN, col=cl) 
+plot dell'intero set
+
+boxplot(EN)
+boxplot(EN,horizontal=T)
+boxplot(EN,horizontal=T,axes=T)
+boxplot(EN,horizontal=T,axes=T,outline=F)
+
+
