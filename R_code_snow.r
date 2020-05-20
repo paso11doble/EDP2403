@@ -21,6 +21,37 @@ ci aspettiamo che questa copertura (aggiornata al 18/05 in Europa) diminuisca ne
 
 # setwd("C:/LAB/snow")
 
-rlist=list.files(pattern=".png", full.names=T)
+vogliamo importare tutti insieme i file: funzione "stack"
 
+rlist <- list.files(pattern=".tif")
+rlist
+list_rast <- lapply(rlist, raster)
+snow.multitemp <- stack(list_rast)
+plot(snow.multitemp, col=cl)
+
+vogliamo fare un plot delle immagini agli estremi (2000 e 2020); col $ uniamo le singole immagini allo stack
+
+par(mfrow=c(1,2))
+plot(snow.multitemp$snow2000r,col=cl)
+plot(snow.multitemp$snow2020r,col=cl)
+
+# plot with limits
+par(mfrow=c(1,2))
+plot(snow.multitemp$snow2000r,col=cl,zlim=c(0,250))
+plot(snow.multitemp$snow2020r,col=cl,zlim=c(0,250))
+imposto la "zlim":le mappe ora hanno la stessa legenda sulla destra: prima era diversa
+
+# difference
+diffsnow = snow.multitemp$snow2020r - snow.multitemp$snow2000r
+cldiff <- colorRampPalette(c('blue','white','red'))(100) 
+plot(diffsnow, col=cldiff)
+
+# prediction (previsione per il 2025)
+# go to IOL and download code "prediction.r" into folder "snow"
+source("prediction.r")
+
+funzione "source": serve per caricare codici dall'esterno
+
+predicted.snow.2025.norm <- raster("predicted.snow.2025.norm.tif")
+plot(predicted.snow.2025.norm, col=cl)
 
