@@ -42,7 +42,7 @@ pairs(meuse[,3:6], col="green", pch=19, cex=3, main="Primo pairs")
 # Exercise: add "elevation" character to the previous
 pairs(meuse[,3:7], col="green", pch=19, cex=3, main="Primo pairs")
 
--------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------
 
 # panels from outside
 
