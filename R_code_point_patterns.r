@@ -1,11 +1,12 @@
-# CODICI PER ANALISI DEI POINT PATTERNS (Pattern legati ai punti) (Pratica del 31/03/20)
+# CODICI PER ANALISI DEI POINT PATTERNS (Pattern legati ai punti) (31/03/20)
 
-install.packages("ggplot2")     (se il pacchetto fosse già presente: library(ggplot2) oppure require(ggplot2))
+install.packages("ggplot2")    
 install.packages("spatstat")
+# se il pacchetto fosse già presente: library(ggplot2) oppure require(ggplot2)
 
-# setwd("C:/LAB/")
+setwd("C:/LAB/")
 
-# importazione di dati dall'esterno
+# IMPORTAZIONE DI DATI DALL'ESTERNO
 covid <- read.table("covid_agg.csv", head=T)
 
 head(covid)
@@ -53,11 +54,11 @@ d <- density(covids)
 plot(d)
 points(covids)
 
---------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------
 
 # Save the .RData (file salvato in LAB nel disco locale (C:)) 
 
-setwd("C:/LAB/")                                                              (Pratica dell'01/04/20)
+setwd("C:/LAB/")                                                              (01/04/20)
 load("point_pattern.RData") (funzione per inserire l'RData di ieri)
 
 ls()  (funzione per vedere cosa contiene)
@@ -117,7 +118,7 @@ plot(coastlines, add=T)
 
 -----------------------------------------------------------------------------------------------------------------------
 
-(Pratica del 22/04/20)
+(22/04/20)
 
 # Exercise: caricare il workspace point_pattern.RData [load("...")] e creare un grafico di densità
 
@@ -173,9 +174,9 @@ coastlines <- readOGR("ne_10m_coastline.shp")
 plot(coastlines, add=T)
 
 
-----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------
 
-# Esercizio San Marino (Pratica del 28/04/20)
+# Esercizio San Marino (28/04/20)
 setwd("C:/LAB/")
 library(spatstat)
 
