@@ -1,12 +1,13 @@
-# CODICI PER ANALISI DEI POINT PATTERNS (Pattern legati ai punti) (31/03/20)
+# CODICI PER ANALISI DEI POINT PATTERNS (PATTERN LEGATI AI PUNTI) (31/03/20)
 
 install.packages("ggplot2")    
 install.packages("spatstat")
-# se il pacchetto fosse già presente: library(ggplot2) oppure require(ggplot2)
+# se il pacchetto fosse già presente: library(ggplot2) oppure require(ggplot2); lo stesso per spatstat
 
 setwd("C:/LAB/")
 
 # IMPORTAZIONE DI DATI DALL'ESTERNO
+
 covid <- read.table("covid_agg.csv", head=T)
 
 head(covid)
@@ -15,58 +16,66 @@ plot(covid$country, covid$cases)
 # attach(covid)
 # plot(country, cases)
 
-funzione "las" serve per cambiare la disposizione delle etichette
-plot(covid$country, covid$cases, las=0) #parallele agli assi
-plot(covid$country, covid$cases, las=1) #orizzontali
-plot(covid$country, covid$cases, las=2) #perpendicolari
-plot(covid$country, covid$cases, las=3) #verticali
+# funzione "las": serve per cambiare la disposizione delle etichette
+plot(covid$country, covid$cases, las=0)  # parallele agli assi
+plot(covid$country, covid$cases, las=1)  # orizzontali
+plot(covid$country, covid$cases, las=2)  # perpendicolari
+plot(covid$country, covid$cases, las=3)  # verticali
 
-plot(covid$country, covid$cases, las=3) #vertical labels
+plot(covid$country, covid$cases, las=3)  # vertical labels
 
-funzione "cex.axis" serve per diminuire la dimensione delle etichette
-plot(covid$country, covid$cases, las=3, cex.lab=0.5, cex.axis=0.5) #vertical labels
+# funzione "cex.axis": serve per diminuire la dimensione delle etichette
+plot(covid$country, covid$cases, las=3, cex.lab=0.5, cex.axis=0.5)  # vertical labels
+
 
 # ggplot2
 data(mpg)
 head(mpg)
 
-# data (il file da utilizzare è "mpg")
-# aestetics (variabili che compongono l'estetica del grafico)
-# type (definisce la geometria, indicata dopo il "+")
 ggplot(mpg, aes(x=displ,y=hwy)) + geom_point()
 ggplot(mpg, aes(x=displ,y=hwy)) + geom_line()
 ggplot(mpg, aes(x=displ,y=hwy)) + geom_polygon()
+# 1) data (il file da utilizzare è "mpg")
+# 2) aestetics (variabili che compongono l'estetica del grafico)
+# 3) type (definisce la geometria, indicata dopo il +)
 
 # ggplot di covid
 ggplot(covid, aes(x=lon, y=lat, size=cases)) + geom_point()
-è una media dati di ogni Paese, di cui si prende come riferimento il centroide
+# si tratta di una media dati di ogni Paese, di cui si prende come riferimento il centroide
+
 
 # density
 # create dataset for spatstat
+
 attach(covid)
+
 covids <- ppp(lon, lat, c(-180, 180), c(-90, 90))
 
-> ppp(x.coordinates, y.coordinates, x.range, y.range)
-
+ppp(x.coordinates, y.coordinates, x.range, y.range)
 
 d <- density(covids)
 
 plot(d)
+
 points(covids)
+# funzione per inserire i centroidi
 
 -----------------------------------------------------------------------------------------------------------------------
 
-# Save the .RData (file salvato in LAB nel disco locale (C:)) 
+# Save the "RData" (file salvato in "LAB") (01/04/20)
 
-setwd("C:/LAB/")                                                              (01/04/20)
-load("point_pattern.RData") (funzione per inserire l'RData di ieri)
+setwd("C:/LAB/")                                                              
 
-ls()  (funzione per vedere cosa contiene)
+load("point_pattern.RData") 
+
+ls()  
+# funzione per vedere cosa contiene il file
+
 
 plot(d)
-# palette (colori per rappresentare la mappa)
 cl <- colorRampPalette(c('yellow', 'orange', 'red')) (100)
 plot(d, col=cl)
+# "Palette" è una gamma di colori scelti per rappresentare una mappa
 
 # Exercise: plot della mappa della densità dal verde al blu
 cl <- colorRampPalette(c('green', 'light blue', 'blue')) (100)
@@ -75,18 +84,15 @@ plot(d, col=cl)
 points(covids)
 
 
-
 coastlines <- readOGR("ne_10m_coastline.shp") 
+# N.B. devo utilizzare una funzione della libreria "rgdal", per leggere files vettoriali
+# quindi prima di dare il comando "readOGR" devo fare: install.packages("rgdal") oppure library(rgdal)
 
-(devo utilizzare una funzione della libreria RGDAL, per leggere files vettoriali)
-quindi prima di dare il comando  "readOGR" devo fare:
-install.packages("rgdal") oppure library(rgdal)
+plot(coastlines, add=T)
+# in questo modo inseriamo le coastlines e le aggiungiamo al plot precedente
 
-plot(coastlines, add=T) (inseriamo le coastlines e le aggiungiamo al plot precedente)
-
-points(covids) (funzione per inserire i centroidi di ieri)
-
-N.B. la mappa è relativa ai dati Covid di febbraio!
+points(covids)
+#  mappa è relativa ai dati Covid di febbraio!
 
 # Exercise: plot della mappa della densità con una nuova colorazione e aggiunta delle coastlines
 cl <- colorRampPalette(c('blue', 'light blue', 'light green', 'yellow')) (100)
