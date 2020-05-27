@@ -87,6 +87,7 @@ ggplot(output, aes(x=time, y=npatches, color="red")) + geom_bar(stat="identity",
 
 (Pratica del 27/05/20)
 
+Sito da cui scaricare dati:
 https://land.copernicus.vgt.vito.be/PDF/portal/Application.html#Home
 Analisi multitemporale con le varie variabili presenti nel sito Copernicus:
 
