@@ -1,4 +1,4 @@
-# CODICI PER ANALISI DEI POINT PATTERNS (PATTERN LEGATI AI PUNTI) (31/03/20)
+# CODICI PER ANALISI DEI POINT PATTERNS (PATTERN LEGATI AI PUNTI) (1) (31/03/20)
 
 install.packages("ggplot2")    
 install.packages("spatstat")
@@ -59,10 +59,13 @@ plot(d)
 
 points(covids)
 # funzione per inserire i centroidi
+# la mappa è relativa ai dati Covid di febbraio!
 
 -----------------------------------------------------------------------------------------------------------------------
 
-# Save the "RData" (file salvato in "LAB") (01/04/20)
+# PATTERN LEGATI AI PUNTI (2) (01/04/20)
+
+# Save the "RData" (file salvato in "LAB")
 
 setwd("C:/LAB/")                                                              
 
@@ -92,14 +95,14 @@ plot(coastlines, add=T)
 # in questo modo inseriamo le coastlines e le aggiungiamo al plot precedente
 
 points(covids)
-#  mappa è relativa ai dati Covid di febbraio!
 
-# Exercise: plot della mappa della densità con una nuova colorazione e aggiunta delle coastlines
+
+# Exercise: plot della mappa della densità con una nuova colorazione; aggiungere poi le coastlines
 cl <- colorRampPalette(c('blue', 'light blue', 'light green', 'yellow')) (100)
 plot(d, col=cl)
 plot(coastlines, add=T, col="green")
 
-N.B. posso fare in vari modi cambiando colori e gamma di colori!
+# ovviamente posso fare in vari modi scegliendo colori e gamme di colori (indicate tra parentesi)...
 
 cl2 <- colorRampPalette(c('red', 'orange', 'yellow', 'green', 'blue')) (800)
 plot(d, col=cl2)
@@ -121,21 +124,20 @@ cl6 <- colorRampPalette(c('white', 'light blue', 'darkcyan', 'red', 'orange', 'y
 plot(d, col=cl6)
 plot(coastlines, add=T)
 
-
 -----------------------------------------------------------------------------------------------------------------------
 
-(22/04/20)
+# PATTERN LEGATI AI PUNTI (3) (22/04/20)
 
-# Exercise: caricare il workspace point_pattern.RData [load("...")] e creare un grafico di densità
+# Exercise: caricare il workspace "point_pattern.RData" (con "load") e creare un grafico di densità 
 
 library(spatstat)
-library(rgdal) # per coastlines
+library(rgdal)  # per le coastlines
 
 setwd("C:/LAB/")
 load("point_pattern.RData")
 ls()
-plot(d)
 
+plot(d)
 cl5 <- colorRampPalette(c('cyan', 'purple', 'red')) (200)
 plot(d, col=cl5)
 points(covids)
@@ -143,19 +145,18 @@ coastlines <- readOGR("ne_10m_coastline.shp")
 plot(coastlines, add=T)
 
 
-
 # ANALISI D'INTERPOLAZIONE
 
 head(covid)
-con "covid" o "view(covid)" posso vedere tutta la tabella
+# con "covid" o "view(covid)" posso vedere tutta la tabella
 
 marks(covids) <- covid$cases
 
-funzione "smooth" serve per creare una mappa "continua" dei casi
 s <- Smooth(covids)
 plot(s)
+# funzione "smooth": serve per creare una mappa "continua", lineare dei casi
 
-# Exercise: plot(s) with points and coastlines
+# Exercise: plot(s) con points e coastlines
 cl5 <- colorRampPalette(c('cyan', 'purple', 'red')) (200)
 plot(s, col=cl5, main="estimate of cases")
 points(covids)
@@ -164,25 +165,30 @@ plot(coastlines, add=T)
 
 text(covids)
 
+
 # MAPPA FINALE (con plot(d) e plot(s) sovrapposti)
+
 par(mfrow=c(2,1))
-# densità
+
+# DENSITA'
 cl5 <- colorRampPalette(c('cyan', 'purple', 'red')) (200)
 plot(d, col=cl5, main="density")
 points(covids)
 coastlines <- readOGR("ne_10m_coastline.shp")
 plot(coastlines, add=T)
-# interpolazione del numero di casi
+
+# INTERPOLAZIONE N° CASI
 cl5 <- colorRampPalette(c('cyan', 'purple', 'red')) (200)
 plot(s, col=cl5, main="estimate of cases")
 points(covids)
 coastlines <- readOGR("ne_10m_coastline.shp")
 plot(coastlines, add=T)
 
-
 -----------------------------------------------------------------------------------------------------------------------
 
-# Esercizio San Marino (28/04/20)
+# PATTERN LEGATI AI PUNTI (4) (28/04/20)
+# ESERCIZIO SAN MARINO 
+
 setwd("C:/LAB/")
 library(spatstat)
 
@@ -196,9 +202,11 @@ summary(Tesi)
 # y varia da 43.91 a 43.94
 
 # per creare il point pattern: x, y, c(xmin, xmax), c(ymin, ymax)
-Tesippp <- ppp(Longitude, Latitude, c(12.41, 12.47), c(43.9, 43.95)) (abbiamo aumentato un pò i margini)
+Tesippp <- ppp(Longitude, Latitude, c(12.41, 12.47), c(43.9, 43.95)) 
+# abbiamo esteso un pò i margini...
 
-# per la densità: dT <- density(Tesippp)
+# per la densità: usare la funzione "density"
+dT <- density(Tesippp)
 plot(dT)
 points(Tesippp, col="green")
 colors()
@@ -223,10 +231,10 @@ points(Tesippp, col="green")
 head(Tesi)
 
 marks(Tesippp) <- Tesi$Species_richness
-funzione "marks" (vedi sopra): associa i valori della variabile che vogliamo interpolare (es. species richness) al point pattern
-(quindi 48 e 43 per Montalbo1 e Montalbo2)
+# funzione "marks" (vedi sopra): associa i valori della variabile che vogliamo interpolare (es. species richness) al point pattern
+# (quindi 48 e 43 per Montalbo1 e Montalbo2)
 
-funzione "Smooth": serve per per vedere le eventuali variazioni
+# per vedere le eventuali variazioni: funzione "smooth"
 interpol <- Smooth(Tesippp)
 
 plot(interpol)
@@ -238,13 +246,15 @@ library(rgdal)
 sanmarino <-  readOGR("San_Marino.shp")
 
 plot(sanmarino)
-plot(interpol, add=T): aggiungo questa mappa alla precedente
+plot(interpol, add=T)
+# in questo modo aggiungo la mappa "interpol" alla precedente
 
 points(Tesippp, col="green") 
-plot(sanmarino, add=T): sovrappongo i confini RSM alle mappe precedenti
+plot(sanmarino, add=T)
+# così sovrappongo i confini RSM alle mappe precedenti
 
 
-# Exercise: plot multiframe (2 righe, 1 colonna) di densità e interpolazione (con titolo, indicato con "main")
+# Exercise: plot multiframe (2 righe, 1 colonna) di densità e interpolazione (con titolo, quindi main="...")
 par(mfrow=c(2,1))
 plot(dT, main="Density of points")
 points(Tesippp, col="green")
@@ -252,9 +262,9 @@ plot(interpol, main="Estimate of species richness")
 points(Tesippp, col="green")
 
 # Exercise: plot multiframe (2 colonne, 1 riga) di densità e interpolazione
-basta invertire i numeri del par:
 par(mfrow=c(1,2))
 plot(dT, main="Density of points")
 points(Tesippp, col="green")
 plot(interpol, main="Estimate of species richness")
 points(Tesippp, col="green")
+# basta invertire i numeri del par
