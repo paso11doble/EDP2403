@@ -1,11 +1,9 @@
-# R spatial: CREAZIONE DI UN CODICE SPAZIALE (24/03/20)
+# R SPATIAL: CREAZIONE DI UN CODICE SPAZIALE (24/03/20)
 
-# Review della scorsa settimana: funzione per installazione dei pacchetti dall'esterno: install.packages("sp")
-                                                                                     (ricordarsi le virgolette!)
-# come richiamare il pacchetto in questione: library(sp)
-
+# REVIEW DELLA SETTIMANA SCORSA: 
+# funzione per installare pacchetti dall'esterno: install.packages("sp") (ricordarsi le virgolette!)
+# come richiamare il pacchetto in questione: library(sp) / require(sp)
 # come richiamare i dati da usare: data(meuse)
-
 # come visualizzare l'incipit (prime 6 righe) della tabella: head(meuse)
 
 
