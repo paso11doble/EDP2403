@@ -61,7 +61,7 @@ head(meuse)
 
 # come plottare i dati nello spazio (in questo caso dello zinco): spplot(meuse, "zinc")
 
-# exercise: fare spplot dei dati del rame
+# Exercise: fare spplot dei dati del rame
 spplot(meuse, "copper")
 
 # head(meuse); un'altra possibilità per vedere i nomi delle colonne è names(meuse)
@@ -89,4 +89,3 @@ plot(foram, carbon,col="green", pch=19, cex=2)
 # cartella da creare su Windows: Disco locale(C:)/LAB
 # percorso (path) da creare per Windows: setwd("C:/LAB") (*w.d. = working directory)
 # funzione per leggere la tabella (dall'esterno): covid <- read.table("covid_agg.csv", head=TRUE)
-
