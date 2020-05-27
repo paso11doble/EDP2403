@@ -106,8 +106,15 @@ Top of Canopy Reflectance
 Surface Albedo
 Land Surface Temperature (temperatura a terra)
 
-Acqua
+Ciclo dell'Acqua ->
+(temperatura dell'acqua sulla superficie dei laghi)
+Qualità delle acque (es. condizionate dal fenomeno dell'eutrofizzazione)
+Quantità d'acqua (Water Bodies, riferita a laghi/lagune)
+Livello delle acque
 
-Criosfera
-
+Criosfera -> vedi Pratica del 20/05/20
+Copertura nevosa
+LIE (Estensione del ghiaccio all'interno dei laghi)                      
+Snow Water Equivalent (SWE)                   
+                     
 funzione "crop": serve per fare un ritaglio su una determinata zona a partire da una scala globale
