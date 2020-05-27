@@ -1,7 +1,7 @@
-# CODICI PER ANALISI DEI POINT PATTERNS (pattern legati ai punti) (Pratica del 31/03/20)
+# CODICI PER ANALISI DEI POINT PATTERNS (Pattern legati ai punti) (Pratica del 31/03/20)
 
-install.packages("ggplot2") oppure library(ggplot2) (se già presente; comando alternativo a library: require)
-install.packages("spatstat") oppure library(spatstat)
+install.packages("ggplot2")     (se il pacchetto fosse già presente: library(ggplot2) oppure require(ggplot2))
+install.packages("spatstat")
 
 # setwd("C:/LAB/")
 
