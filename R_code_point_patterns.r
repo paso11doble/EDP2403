@@ -5,12 +5,12 @@ install.packages("spatstat")
 
 # setwd("C:/LAB/")
 
-# importare dati
+# importazione di dati dall'esterno
 covid <- read.table("covid_agg.csv", head=T)
 
 head(covid)
 
-plot(covid$country, covid$cases) (Ricorda: $ collega una colonna al dataset)
+plot(covid$country, covid$cases)
 # attach(covid)
 # plot(country, cases)
 
@@ -29,7 +29,7 @@ plot(covid$country, covid$cases, las=3, cex.lab=0.5, cex.axis=0.5) #vertical lab
 data(mpg)
 head(mpg)
 
-# data (il file da utilizzare è mpg)
+# data (il file da utilizzare è "mpg")
 # aestetics (variabili che compongono l'estetica del grafico)
 # type (definisce la geometria, indicata dopo il "+")
 ggplot(mpg, aes(x=displ,y=hwy)) + geom_point()
