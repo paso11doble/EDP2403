@@ -85,4 +85,29 @@ ggplot(output, aes(x=time, y=npatches, color="red")) + geom_bar(stat="identity",
 
 -----------------------------------------------------------------------------------------------------------------------
 
-(Pratica del 22/04/20)
+(Pratica del 27/05/20)
+
+https://land.copernicus.vgt.vito.be/PDF/portal/Application.html#Home
+Analisi multitemporale con le varie variabili presenti nel sito Copernicus:
+
+Vegetazione -> 
+LAI (Leaf Area Index, si riferisce alla singola foglia)
+FCOVER (Estensione spaziale di tutta la vegetazione)
+FAPAR (Quanta luce la pianta riesce a carpire per produrre fotosintesi?)
+NDVI (Differenza dell'indice di vegetazione normalizzato)
+VCI (serve per misurare la condizione di salute della vegetazione)
+VPI (quanta materia produce la vegetazione?)
+Burnt Area (quantità di incendi in una certa area)
+Soil Water Index (indice di umidità del suolo)
+Surface Soil Moisture (quantità d'acqua nei primissimi cm del suolo)
+
+Energia -> 
+Top of Canopy Reflectance
+Surface Albedo
+Land Surface Temperature (temperatura a terra)
+
+Acqua
+
+Criosfera
+
+funzione "crop": serve per fare un ritaglio su una determinata zona a partire da una scala globale
