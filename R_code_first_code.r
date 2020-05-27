@@ -3,8 +3,9 @@
 # PRIMO CODICE R ECOLOGIA DEL PAESAGGIO (18/03/20)
 
 install.packages("sp")
+
 library(sp)
-# require(sp): è un comando alternativo per caricare le librerie
+# un comando alternativo per caricare le librerie: require(sp)
 
 data(meuse)
 meuse
@@ -16,28 +17,33 @@ summary(meuse)
 
 pairs(meuse)
 
-pairs(~ cadmium + copper + lead , data = meuse)
+pairs(~ cadmium + copper + lead, data = meuse)
 
-# Exercise: cadmium copper lead zinc
-pairs(~ cadmium + copper + lead + zinc , data = meuse)
+# Exercise: add zinc to cadmium, copper and lead
+pairs(~ cadmium + copper + lead + zinc, data = meuse)
 
-"freccia ↑": riprende l'ultimo comando usato
+# "freccia ↑": riprende l'ultimo comando usato
 
-"parentesi [...]": servono per fare un subset
+# "parentesi [...]": servono per fare un subset
 pairs(meuse[,3:6])
 
-pairs(meuse[,3:6], col="green") per cambiare colore
+pairs(meuse[,3:6], col="green")
+# per cambiare colore
 
-pairs(meuse[,3:6], col="green", pch=19) per selezionare il "point shape"
+pairs(meuse[,3:6], col="green", pch=19) 
+# per selezionare il "point shape" (o point character)
 
-pairs(meuse[,3:6], col="green", pch=19, cex=3) per aumentare dimensioni punti (*cex=character exageration)
+pairs(meuse[,3:6], col="green", pch=19, cex=3) 
+# per aumentare le dimensioni dei punti (cex=character exageration)
 
-pairs(meuse[,3:6], col="green", pch=19, cex=3, main="Primo pairs") per dare un titolo 
+pairs(meuse[,3:6], col="green", pch=19, cex=3, main="Primo pairs") 
+# per dare un titolo 
 
-# Exercise: fare lo stesso aggiungendo "elevation" (7° carattere)
+# Exercise: add "elevation" character to the previous
 pairs(meuse[,3:7], col="green", pch=19, cex=3, main="Primo pairs")
 
 -------------------------------------------------------------------------------------------------
+
 # panels from outside
 
 
@@ -91,7 +97,7 @@ pairs(meuse[,3:6], lower.panel = panel.smoothing, upper.panel = panel.correlatio
 # funzione plot
 
 plot(meuse$cadmium, meuse$copper)
-"dollaro $": serve per collegare più variabili
+# "dollaro $": serve per collegare più variabili
 
 attach(meuse)
 plot(cadmium, copper)
