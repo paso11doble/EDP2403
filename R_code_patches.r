@@ -81,3 +81,8 @@ attach(output)
 
 library(ggplot2)
 ggplot(output, aes(x=time, y=npatches, color="red")) + geom_bar(stat="identity", fill="white")
+
+
+-----------------------------------------------------------------------------------------------------------------------
+
+(Pratica del 22/04/20)
