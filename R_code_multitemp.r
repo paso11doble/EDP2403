@@ -1,4 +1,5 @@
-# R code: analisi multitemporale di variazione di copertura del suolo (Pratica del 29/04/20)
+# R CODE FOR MULTITEMPORAL ANALYSIS:
+# ANALISI MULTITEMPORALE DI VARIAZIONE DELLA COPERTURA DEL SUOLO (29/04/20)
    (file deforestazione Foresta Amazzonica, Mato Grosso, BR)
 
 setwd("C:/LAB/")
@@ -123,7 +124,7 @@ View(output)
 
 ----------------------------------------------------------------------------------------------------------------
 
-# R code: analisi multitemporale di variazione di copertura del suolo (Pratica del 05/05/20)
+# ANALISI MULTITEMPORALE DI VARIAZIONE DELLA COPERTURA DEL SUOLO (05/05/20)
 
 setwd("C:/LAB/")
 load("defor.RData")        (vedi appunti 29/04, oppure download da IOL)
@@ -163,7 +164,7 @@ grid.arrange(grafico1, grafico2, nrow = 1)
 
 ----------------------------------------------------------------------------------------------------------------
 
-# R code: analisi multitemporale di variazione di copertura del suolo (Pratica del 06/05/20, review di ieri)
+# ANALISI MULTITEMPORALE DI VARIAZIONE DELLA COPERTURA DEL SUOLO (06/05/20, review di ieri)
 
 setwd("C:/LAB/")
 require(raster)
