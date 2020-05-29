@@ -1,18 +1,20 @@
-# Codice R per analisi di immagini satellitari (pratica del 07/04/20)
-
-# packages: raster (richiamiamo la cartella raster)
+# R CODE FOR SATELLITE IMAGES ANALYSIS
+# ANALISI DI TELERILEVAMENTO (1) (07/04/20)
 
 install.packages("raster")
 library(raster)
 
-# setwd("C:/LAB/")
+setwd("C:/LAB/")
 
-p224r63 <- brick("p224r63_2011_masked.grd")  La funzione "brick" permette di caricare dati dall'esterno e di associarli ad una certa immagine
+p224r63 <- brick("p224r63_2011_masked.grd")  
+# funzione "brick": permette di caricare più dati dall'esterno e di associarli ad una certa immagine
+# es. per immagini satellitari (ortofoto)
 
 p224r63_2011 <- brick("p224r63_2011_masked.grd")
 
 plot(p224r63_2011)
 
+# selezionando "p224r63_2011" e osservando i nomi si possono notare 7 bande
 #Banda 1: blue
 #Banda 2: green
 #Banda 3: red
@@ -21,9 +23,11 @@ plot(p224r63_2011)
 #Banda 6: thermal infrared
 #Banda 7: medium infrared
 
-# save RData (pratica dell'08/04/20)
+-----------------------------------------------------------------------------------------------------------------------
 
-# setwd("C:/LAB/")
+# ANALISI DI TELERILEVAMENTO (2) (08/04/20)
+
+setwd("C:/LAB/")
 
 load("teleril.RData")
 
@@ -112,8 +116,9 @@ plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="Lin")
 # Exercise: nir nella componente blue
 plotRGB(p224r63_2011, r=3, g=2, b=4, stretch="Lin")
 
-           
--------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------
+
+# ANALISI DI TELERILEVAMENTO (3) (15/04/20)         
  # PRATICA DEL 15/04/20 
  
  library(raster)
