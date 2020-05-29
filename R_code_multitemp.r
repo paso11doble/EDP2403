@@ -1,5 +1,5 @@
 # R CODE FOR MULTITEMPORAL ANALYSIS:
-# ANALISI MULTITEMPORALE DI VARIAZIONE DELLA COPERTURA DEL SUOLO (29/04/20)
+# ANALISI MULTITEMPORALE DI VARIAZIONE DELLA COPERTURA DEL SUOLO (1) (29/04/20)
 
 # file deforestazione Foresta Amazzonica, Mato Grosso, BR
 
@@ -132,7 +132,7 @@ View(output)
 
 -----------------------------------------------------------------------------------------------------------------------
 
-# ANALISI MULTITEMPORALE DI VARIAZIONE DELLA COPERTURA DEL SUOLO (05/05/20)
+# ANALISI MULTITEMPORALE DI VARIAZIONE DELLA COPERTURA DEL SUOLO (2) (05/05/20)
 
 setwd("C:/LAB/")
 
@@ -182,7 +182,7 @@ grid.arrange(grafico1, grafico2, nrow = 1)
 
 -----------------------------------------------------------------------------------------------------------------------
 
-# ANALISI MULTITEMPORALE DI VARIAZIONE DELLA COPERTURA DEL SUOLO (06/05/20)
+# ANALISI MULTITEMPORALE DI VARIAZIONE DELLA COPERTURA DEL SUOLO (3) (06/05/20)
 # REVIEW: vedi rif. 05/05/20
 
 setwd("C:/LAB/")
