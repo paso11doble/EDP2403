@@ -1,4 +1,5 @@
-# CODICI PER ANALISI DEI POINT PATTERNS (PATTERN LEGATI AI PUNTI) (1) (31/03/20)
+# R CODE FOR POINT PATTERN ANALYSIS: 
+# PATTERN LEGATI AI PUNTI (1) (31/03/20)
 
 install.packages("ggplot2")    
 install.packages("spatstat")
