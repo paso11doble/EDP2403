@@ -1,9 +1,11 @@
-# R code for analysing NO2 data from ESA - January to March 2020 (Pratica del 05/05/20)
+# MULTITEMPORAL ANALYSIS: R CODE FOR ANALYSING NO2 DATA FROM ESA - JANUARY TO MARCH 2020 
+# ANALISI MULTITEMPORALE DATI ESA SU NO2 (1) (05/05/20)
 
 setwd("C:/LAB/")
+
 library(raster)
 
-funzione "raster": la utilizziamo per importare le singole immagini
+# funzione "raster": si usa per importare singole immagini satellitari
 EN01 <- raster("EN_0001.png")
 plot(EN01)
 
@@ -43,7 +45,8 @@ plot(EN01, col=cl)
 plot(EN13, col=cl)
 
 
-# differenza 
+# MULTITEMPORAL ANALYSIS
+# Difference: last image - first image
 
 difno2 <- EN13 - EN01
 
@@ -54,7 +57,6 @@ plot(difno2, col=cldif)
 # yellow: differenze maggiori NO2
 
 # Exercise: plot all the images
-(N.B. le immagini sono 13, quindi col "par" dobbiamo selezionare 4 righe e 4 colonne!)
 par(mfrow=c(4,4))
 plot(EN01, col=cl)
 plot(EN02, col=cl)
@@ -69,14 +71,20 @@ plot(EN10, col=cl)
 plot(EN11, col=cl)
 plot(EN12, col=cl)
 plot(EN13, col=cl)
+# N.B. le immagini sono 13, quindi col "par" dobbiamo selezionare 4 righe e 4 colonne!
 
-----------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------
 
-# R code for analysing NO2 data from ESA (Pratica del 06/05/20)
+# ANALISI MULTITEMPORALE DATI ESA SU NO2 (2) (06/05/20)
 
 setwd("C:/LAB/")
+
 library(raster)
-load("multitemp.NO2")              [in alternativa: load("EN.RData")  (download da IOL)]
+
+load("multitemp.NO2")
+
+# oppure download da IOL: 
+load("EN.RData")
 
 ls()
  [1] "after"              "before"             "cl"                
@@ -92,36 +100,40 @@ ls()
 [31] "percent1"           "percent2"           "totd1"             
 [34] "totd2"             
 
-funzione "lapply": non viene applicata ad un singolo file (come per "raster") ma formula un "ciclo", apporta assieme diversi dati/vettori
+# funzione "lapply": non viene applicata ad un singolo file ma formula un "ciclo", apporta assieme diversi dati/vettori
+
 
 setwd("C:/LAB/esa_NO2")
-[creare una cartella all'interno di LAB ("esa_NO2") e importare tutti e 13 i PNG]
+# creare una cartella all'interno di LAB ("esa_NO2") e importarvi tutti i 13 PNG
 
-funzione "list.files": serve per fare una lista di files con attributi simili (in questo caso PNG)
+# funzione "list.files": serve per fare una lista di files con attributi simili (in questo caso PNG)
 rlist <- list.files(pattern=".png")
 
 rlist                                                     
  [1] "EN_0001.png" "EN_0002.png" "EN_0003.png" "EN_0004.png" "EN_0005.png"
  [6] "EN_0006.png" "EN_0007.png" "EN_0008.png" "EN_0009.png" "EN_0010.png"
 [11] "EN_0011.png" "EN_0012.png" "EN_0013.png"
-(in questo modo visualizziamo solo i PNG!)
+# in questo modo visualizziamo solo i PNG
 
-alla funzione "lapply" associamo "raster" (per le immagini satellitari)
+
+# alla funzione "lapply" associamo "raster" (per le singole immagini)
 listafinale <- lapply(rlist, raster)
 
 listafinale
 
-funzione "stack": dalle 13 immagini satellitari creiamo un'unica banda
+
+# funzione "stack": dalle 13 immagini satellitari creiamo un'unica banda
 EN <- stack(listafinale)
 
 cl <- colorRampPalette(c('red','orange','yellow'))(100) # 
 plot(EN, col=cl)
 
-----------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------
 
-# R code for analysing NO2 data from ESA (Pratica del 12/05/20)
+# ANALISI MULTITEMPORALE DATI ESA SU NO2 (3) (12/05/20)
  
 setwd("C:/LAB/esa_NO2") 
+
 require(raster)
 
 rlist <- list.files(pattern=".png") 
@@ -134,18 +146,18 @@ EN <- stack(listafinale)
 # stack
  
 difEN <- EN$EN_0013 - EN$EN_0001
-differenza tra il valore del pixel della 13ma immagine e il valore della 1a
+# differenza tra il valore del pixel della 13ma immagine e il valore della 1a
  
 cld <- colorRampPalette(c('blue','white','red'))(100) # 
 plot(difEN, col=cld)
- 
+
+
 cl <- colorRampPalette(c('red','orange','yellow'))(100) # 
 plot(EN, col=cl) 
-plot dell'intero set
+# plot dell'intero set
 
 boxplot(EN)
 boxplot(EN,horizontal=T)
 boxplot(EN,horizontal=T,axes=T)
 boxplot(EN,horizontal=T,axes=T,outline=F)
 boxplot(EN,horizontal=T,axes=F,outline=F)
-
