@@ -51,8 +51,7 @@ ggplot(covid, aes(x=lon, y=lat, size=cases)) + geom_point()
 attach(covid)
 
 covids <- ppp(lon, lat, c(-180, 180), c(-90, 90))
-
-ppp(x.coordinates, y.coordinates, x.range, y.range)
+# ppp(x.coordinates, y.coordinates, x.range, y.range)
 
 d <- density(covids)
 
@@ -60,6 +59,7 @@ plot(d)
 
 points(covids)
 # funzione per inserire i centroidi
+# prima però occorre selezionare "plot(covids)" affinché R prenda il comando senza errori!
 # la mappa è relativa ai dati Covid di febbraio!
 
 -----------------------------------------------------------------------------------------------------------------------
@@ -94,8 +94,6 @@ coastlines <- readOGR("ne_10m_coastline.shp")
 
 plot(coastlines, add=T)
 # in questo modo inseriamo le coastlines e le aggiungiamo al plot precedente
-
-points(covids)
 
 
 # Exercise: plot della mappa della densità con una nuova colorazione; aggiungere poi le coastlines
@@ -155,7 +153,7 @@ marks(covids) <- covid$cases
 
 s <- Smooth(covids)
 plot(s)
-# funzione "smooth": serve per creare una mappa "continua", lineare dei casi
+# funzione "Smooth": serve per creare una mappa "continua", lineare dei casi
 
 # Exercise: plot(s) con points e coastlines
 cl5 <- colorRampPalette(c('cyan', 'purple', 'red')) (200)
@@ -199,8 +197,8 @@ head(Tesi)
 attach(Tesi)
 
 summary(Tesi)
-# x varia da 12.42 a 12.46
-# y varia da 43.91 a 43.94
+# x (Longitude): varia da 12.42 a 12.46
+# y (Latitude): varia da 43.91 a 43.94
 
 # per creare il point pattern: x, y, c(xmin, xmax), c(ymin, ymax)
 Tesippp <- ppp(Longitude, Latitude, c(12.41, 12.47), c(43.9, 43.95)) 
@@ -227,12 +225,11 @@ ls()
 # panel.correlations
 # panel.smoothing
 
-plot(dT)
 points(Tesippp, col="green")
 head(Tesi)
 
 marks(Tesippp) <- Tesi$Species_richness
-# funzione "marks" (vedi sopra): associa i valori della variabile che vogliamo interpolare (es. species richness) al point pattern
+# funzione "marks" (vedi sopra): associa i valori della variabile che vogliamo interpolare (es. Species richness) al point pattern
 # (quindi 48 e 43 per Montalbo1 e Montalbo2)
 
 # per vedere le eventuali variazioni: funzione "smooth"
@@ -241,6 +238,7 @@ interpol <- Smooth(Tesippp)
 plot(interpol)
 
 points(Tesippp, col="green")
+# prima però occorre selezionare "plot(Tesippp)" affinché R prenda il comando senza errori!
 
 
 library(rgdal)
@@ -248,7 +246,7 @@ sanmarino <-  readOGR("San_Marino.shp")
 
 plot(sanmarino)
 plot(interpol, add=T)
-# in questo modo aggiungo la mappa "interpol" alla precedente
+# aggiungo la mappa "interpol" alla precedente
 
 points(Tesippp, col="green") 
 plot(sanmarino, add=T)
@@ -256,16 +254,15 @@ plot(sanmarino, add=T)
 
 
 # Exercise: plot multiframe (2 righe, 1 colonna) di densità e interpolazione (con titolo, quindi main="...")
-par(mfrow=c(2,1))
+par(mfrow=c(2,1))   # sovrapposti
 plot(dT, main="Density of points")
 points(Tesippp, col="green")
 plot(interpol, main="Estimate of species richness")
 points(Tesippp, col="green")
 
 # Exercise: plot multiframe (2 colonne, 1 riga) di densità e interpolazione
-par(mfrow=c(1,2))
+par(mfrow=c(1,2))   # affiancati
 plot(dT, main="Density of points")
 points(Tesippp, col="green")
 plot(interpol, main="Estimate of species richness")
 points(Tesippp, col="green")
-# basta invertire i numeri del par
