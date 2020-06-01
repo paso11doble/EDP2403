@@ -54,7 +54,7 @@ clb <- colorRampPalette(c('dark blue','blue','light blue'))(100) #
 plot(p224r63_2011$B1_sre, col=clb)
 # attach(dataframe) non funziona con il pacchetto "raster"
 # con "$" allego la colonna (in questo caso Banda 1) all'immagine satellitare (dataset) 
-# 'sre' è il sensore
+# "sre" è il sensore
 
 # Exercise: plottare la banda del NIR con colorRampPalette dal rosso, all'arancione, al giallo
 clnir <- colorRampPalette(c('red','orange','yellow'))(100) #
@@ -83,7 +83,7 @@ clnir <- colorRampPalette(c('red','orange','yellow'))(100) #
 plot(p224r63_2011$B4_sre, col=clnir)
 
 dev.off()
-# fa sparire l'ultima immagine creata
+# fa sparire l'ultimo plot creato
 
 
 # NATURAL COLOURS MULTIFRAME 
@@ -103,7 +103,7 @@ plotRGB(p224r63_2011, r=3, g=2, b=1)
 plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="Lin")
 
 # NIR
-# immagine a colori falsati (scaliamo i colori di 1, inseriamo la Banda 4)
+# immagine a colori falsati (scaliamo i colori di 1, inseriamo la Banda NIR)
 plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
 
 
@@ -142,7 +142,7 @@ ls()
 # [7] "meuse"              "p224r63"            "p224r63_2011"      
 # [10] "panel.correlations" "panel.smoothing"   
 
-# dobbiamo importare p224r63_1988_masked.grd    
+# dobbiamo importare "p224r63_1988_masked.grd"    
 # analizziamo i dati relativi al 1988 (dati 08/04 relativi al 2011)
 
 p224r63_1988 <- brick("p224r63_1988_masked.grd")
@@ -191,7 +191,6 @@ plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="Lin")
 # confronto 1988-2011
 
 par(mfrow=c(2,1))         
-
 plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="Lin", main="1988")
 plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin", main="2011")
 
@@ -200,31 +199,26 @@ dev.off()
                
 # SPECTRAL INDICES 
 
+# Differenza 1988: Banda NIR - Banda red
 # dvi1988 = nir1988 - red1988          
-# Banda NIR - Banda red
 
 dvi1988 <- p224r63_1988$B4_sre - p224r63_1988$B3_sre        
-          
 plot(dvi1988)
  
 # Exercise: calculate the same dvi for 2011 
 dvi2011 <- p224r63_2011$B4_sre - p224r63_2011$B3_sre           
-
 plot(dvi2011)         
            
 cldvi <- colorRampPalette(c('light blue','light green','green'))(100) #           
-
 plot(dvi2011, col=cldvi)
 
 
 # MULTITEMPORAL ANALYSIS
 
 difdvi <- dvi2011 - dvi1988 
-
 plot(difdvi)
 
 cldifdvi <- colorRampPalette(c('red','white','blue'))(100) #  
-
 plot(difdvi, col=cldifdvi)
 
 
@@ -232,7 +226,6 @@ plot(difdvi, col=cldifdvi)
 # MULTIFRAME 1988rgb, 2011rgb, difdiv
 
 par(mfrow=c(3,1))
-
 plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="Lin") 
 plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")       
 plot(difdvi, col=cldifdvi)
@@ -241,9 +234,10 @@ plot(difdvi, col=cldifdvi)
 
 
 # CHANGING THE GRAIN
-# cambiamo la risoluzione delle immagini
+# cambio della risoluzione delle immagini
 
 p224r63_2011lr <- aggregate(p224r63_2011, fact=10) 
+
 p224r63_2011   
 # digitando il nome dell'immagine possiamo vederne le caratteristiche; come cambia la risoluzione?       
 p224r63_2011lr  
@@ -259,20 +253,21 @@ p224r63_2011lr50 <- aggregate(p224r63_2011, fact=50)
 p224r63_2011lr50
 # la risoluzione da 30x30m è passata a 1500x1500m
 
-par(mfrow=c(3,1))         
+par(mfrow=c(3,1))  
 plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin") 
 plotRGB(p224r63_2011lr, r=4, g=3, b=2, stretch="Lin") 
 plotRGB(p224r63_2011lr50, r=4, g=3, b=2, stretch="Lin")          
- 
-# dvi2011 low resolution
+
+
+# dvi2011 LOW RESOLUTION
 dvi2011lr50 <- p224r63_2011lr50$B4_sre - p224r63_2011lr50$B3_sre 
 plot(dvi2011lr50)
 
-# dvi1988 low resolution
+# dvi1988 LOW RESOLUTION
 p224r63_1988lr50 <- aggregate(p224r63_1988, fact=50) 
 dvi1988lr50 <- p224r63_1988lr50$B4_sre - p224r63_1988lr50$B3_sre
 
-# difdvi low resolution
+# difdvi LOW RESOLUTION
 # difdvilr50 <- dvi2011lr50 - dvi1988lr50
 cldifdvi <- colorRampPalette(c('red','white','blue'))(100) #  
 plot(difdvilr50, cl=cldifdvi)
