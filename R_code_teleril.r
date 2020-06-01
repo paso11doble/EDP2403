@@ -146,7 +146,6 @@ ls()
 # analizziamo i dati relativi al 1988 (dati 08/04 relativi al 2011)
 
 p224r63_1988 <- brick("p224r63_1988_masked.grd")
-  
 plot(p224r63_1988)
 
 
@@ -223,7 +222,7 @@ plot(difdvi, col=cldifdvi)
 
 
 # VISUALIZE THE OUTPUT
-# MULTIFRAME 1988rgb, 2011rgb, difdiv
+# MULTIFRAME: 1988rgb, 2011rgb, difdiv
 
 par(mfrow=c(3,1))
 plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="Lin") 
@@ -266,13 +265,14 @@ plot(dvi2011lr50)
 # dvi1988 LOW RESOLUTION
 p224r63_1988lr50 <- aggregate(p224r63_1988, fact=50) 
 dvi1988lr50 <- p224r63_1988lr50$B4_sre - p224r63_1988lr50$B3_sre
+plot(dvi1988lr50)
 
 # difdvi LOW RESOLUTION
-# difdvilr50 <- dvi2011lr50 - dvi1988lr50
+difdvilr50 <- dvi2011lr50 - dvi1988lr50
 cldifdvi <- colorRampPalette(c('red','white','blue'))(100) #  
 plot(difdvilr50, cl=cldifdvi)
 
-# multiframe
+# MULTIFRAME: difdvi, difdvi LR
 par(mfrow=c(2,1))
 plot(difdvi, col=cldifdvi)
 plot(difdvilr50, col=cldifdvi)
