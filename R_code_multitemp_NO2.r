@@ -24,17 +24,17 @@ EN12 <- raster("EN_0012.png")
 EN13 <- raster("EN_0013.png")
 
 ls()
- [1] "after"              "before"             "cl"                
- [4] "cover"              "d1c"                "d2c"               
- [7] "defor1"             "defor2"             "EN01"              
-[10] "EN02"               "EN03"               "EN04"              
-[13] "EN05"               "EN06"               "EN07"              
-[16] "EN08"               "EN09"               "EN10"              
-[19] "EN11"               "EN12"               "EN13"              
-[22] "grafico1"           "grafico2"           "meuse"             
-[25] "output"             "p1"                 "panel.correlations"
-[28] "panel.smoothing"    "percent1"           "percent2"          
-[31] "totd1"              "totd2"    
+#  [1] "after"              "before"             "cl"                
+#  [4] "cover"              "d1c"                "d2c"               
+#  [7] "defor1"             "defor2"             "EN01"              
+# [10] "EN02"               "EN03"               "EN04"              
+# [13] "EN05"               "EN06"               "EN07"              
+# [16] "EN08"               "EN09"               "EN10"              
+# [19] "EN11"               "EN12"               "EN13"              
+# [22] "grafico1"           "grafico2"           "meuse"             
+# [25] "output"             "p1"                 "panel.correlations"
+# [28] "panel.smoothing"    "percent1"           "percent2"          
+# [31] "totd1"              "totd2"    
 
 cl <- colorRampPalette(c('red','orange','yellow'))(100) # 
 plot(EN01, col=cl)
@@ -87,18 +87,18 @@ load("multitemp.NO2")
 load("EN.RData")
 
 ls()
- [1] "after"              "before"             "cl"                
- [4] "cldif"              "cover"              "d1c"               
- [7] "d2c"                "defor1"             "defor2"            
-[10] "difno2"             "EN01"               "EN02"              
-[13] "EN03"               "EN04"               "EN05"              
-[16] "EN06"               "EN07"               "EN08"              
-[19] "EN09"               "EN10"               "EN11"              
-[22] "EN12"               "EN13"               "grafico1"          
-[25] "grafico2"           "meuse"              "output"            
-[28] "p1"                 "panel.correlations" "panel.smoothing"   
-[31] "percent1"           "percent2"           "totd1"             
-[34] "totd2"             
+#  [1] "after"              "before"             "cl"                
+#  [4] "cldif"              "cover"              "d1c"               
+#  [7] "d2c"                "defor1"             "defor2"            
+# [10] "difno2"             "EN01"               "EN02"              
+# [13] "EN03"               "EN04"               "EN05"              
+# [16] "EN06"               "EN07"               "EN08"              
+# [19] "EN09"               "EN10"               "EN11"              
+# [22] "EN12"               "EN13"               "grafico1"          
+# [25] "grafico2"           "meuse"              "output"            
+# [28] "p1"                 "panel.correlations" "panel.smoothing"   
+# [31] "percent1"           "percent2"           "totd1"             
+# [34] "totd2"             
 
 # funzione "lapply": non viene applicata ad un singolo file ma formula un "ciclo", apporta assieme diversi dati/vettori
 
@@ -110,9 +110,10 @@ setwd("C:/LAB/esa_NO2")
 rlist <- list.files(pattern=".png")
 
 rlist                                                     
- [1] "EN_0001.png" "EN_0002.png" "EN_0003.png" "EN_0004.png" "EN_0005.png"
- [6] "EN_0006.png" "EN_0007.png" "EN_0008.png" "EN_0009.png" "EN_0010.png"
-[11] "EN_0011.png" "EN_0012.png" "EN_0013.png"
+#  [1] "EN_0001.png" "EN_0002.png" "EN_0003.png" "EN_0004.png" "EN_0005.png"
+#  [6] "EN_0006.png" "EN_0007.png" "EN_0008.png" "EN_0009.png" "EN_0010.png"
+# [11] "EN_0011.png" "EN_0012.png" "EN_0013.png"
+
 # in questo modo visualizziamo solo i PNG
 
 
