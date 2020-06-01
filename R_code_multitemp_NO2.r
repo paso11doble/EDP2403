@@ -1,5 +1,5 @@
 # MULTITEMPORAL ANALYSIS: R CODE FOR ANALYSING NO2 DATA FROM ESA - JANUARY TO MARCH 2020 
-# ANALISI MULTITEMPORALE DATI ESA SU NO2 (1) (05/05/20)
+# ANALISI MULTITEMPORALE DI DATI CONTINUI (1) (05/05/20)
 
 setwd("C:/LAB/")
 
@@ -75,7 +75,7 @@ plot(EN13, col=cl)
 
 -----------------------------------------------------------------------------------------------------------------------
 
-# ANALISI MULTITEMPORALE DATI ESA SU NO2 (2) (06/05/20)
+# ANALISI MULTITEMPORALE DI DATI CONTINUI (2) (06/05/20)
 
 setwd("C:/LAB/")
 
@@ -130,7 +130,7 @@ plot(EN, col=cl)
 
 -----------------------------------------------------------------------------------------------------------------------
 
-# ANALISI MULTITEMPORALE DATI ESA SU NO2 (3) (12/05/20)
+# ANALISI MULTITEMPORALE DI DATI CONTINUI (3) (12/05/20)
  
 setwd("C:/LAB/esa_NO2") 
 
