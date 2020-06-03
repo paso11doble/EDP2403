@@ -659,4 +659,83 @@ plot(difdvilr50, col=cldifdvi)
 ##########################################################################################################################
 
 
-### 7. R_code_teleril.r
+### 11. R Code Crop (Ritaglio)
+
+setwd("C:/LAB/snow")
+
+require(ncdf4)
+require(raster)
+
+# Exercise: upload the whole snow set (from 2000 to 2020, not predicted!) (utilizzare prima lapply poi stack)
+
+rlist <- list.files(pattern="snow")
+rlist
+
+# save raster into list
+# lapply
+
+list_rast <- lapply(rlist, raster)
+snow.multitemp <- stack(list_rast)
+
+clb <- colorRampPalette(c('darkblue','blue','light blue'))(100)
+
+plot(snow.multitemp, col=clb)
+
+# N.B. non c'è bisogno di utilizzare il par
+
+
+
+snow.multitemp
+# dai names selezioniamo il 2010r
+plot(snow.multitemp$snow2010r, col=clb)
+
+
+# funzione zoom (esclusiva di raster)
+zoom(nome immagine, estensione)
+
+# funzione ext: come definire l'estensione di una certa area
+extension <- c(xmin, xmax, ymin, ymax)
+
+      
+# dove casca l'italia(prima zoom poi crop)
+      
+extension <- c(6, 18, 40, 50)
+zoom(snow.multitemp$snow2010r, ext=extension)
+
+extension <- c(6, 18, 35, 50)
+zoom(snow.multitemp$snow2010r, ext=extension)
+      
+extension <- c(6, 20, 35, 50)
+zoom(snow.multitemp$snow2010r, ext=extension)     
+
+
+plot(snow.multitemp$snow2010r, col=clb)
+zoom(snow.multitemp$snow2010r, ext=drawExtent())
+# disegnare un rettangolo a partire dall'alto a sx dell'area di riferimento
+
+# funzione crop
+extension <- c(6, 20, 35, 50)
+snow2010r.italy <- crop(snow.multitemp$snow2010r, extension)
+plot(snow2010r.italy, col=clb)
+
+# Exercise: crop the italy extent on the WHOLE STACK of snow layers (quindi a partire dallo stack SNOW.MULTITEMP)
+snow.multitemp.italy <- crop(snow.multitemp, extension)
+plot(snow.multitemp.italy, col=clb)
+
+plot(snow.multitemp.italy, col=clb, zlim=c(20,200))
+# uniformiamo i limiti
+
+# BOXPLOT DELLA COPERTURA NEVOSA
+# vedi rif. multitemp.NO2
+# come varia in media la copertura nevosa negli anni?
+
+boxplot(snow.multitemp.italy, horizontal=T, outline=F)
+
+
+
+
+
+
+
+
+
