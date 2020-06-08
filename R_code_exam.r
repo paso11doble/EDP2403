@@ -733,9 +733,128 @@ boxplot(snow.multitemp.italy, horizontal=T, outline=F)
 
 
 
+##########################################################################################################################
 
 
+### 12. Species Distribution Modelling
+
+install.packages("sdm")
+library(sdm)
+
+library(raster)
+library(rgdal)
 
 
+# SPECIES
 
+file <- system.file("external/species.shp", package="sdm") 
+species <- shapefile(file)
+# carichiamo lo shapefile "species" dall'esterno all'interno del pacchetto "sdm"
+# funzione "shapefile": funzione di "rgdal" (per files vettoriali), serve per mappare la distribuzione di una determinata specie a terra
+
+species
+# class       : SpatialPointsDataFrame 
+# features    : 200 
+# extent      : 110112, 606053, 4013700, 4275600  (xmin, xmax, ymin, ymax)
+# crs         : +proj=utm +zone=30 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
+# variables   : 1
+# names       : Occurrence 
+# min values  :          0 
+# max values  :          1 
+
+N.B. Zone=Fuso -> siamo in Spagna (fuso 30)
+
+species$Occurrence
+# "species" è formato da dei punti con coordinate e ogni punto è legato al fatto che la specie sia stata vista o meno
+
+plot(species)
+
+plot(species[species$Occurrence == 1,],col='blue',pch=16)
+points(species[species$Occurrence == 0,],col='red',pch=16)
+
+# all'interno del dataset species: le occorrenze sono uguali a 1 -> specie presente (punto blu)
+#                                  le occorrenze sono uguali a 0 -> specie assente (punto rosso)
+
+
+# MODEL
+
+path <- system.file("external", package="sdm") 
+# importiamo la cartella external all'interno del pacchetto "sdm"
+
+
+# PREDICTORS
+
+lst <- list.files(path=path,pattern='asc$',full.names = T) #
+preds <- stack(lst) 
+
+lst
+# [1] "C:/R-3.6.3/library/sdm/external/elevation.asc"    
+# [2] "C:/R-3.6.3/library/sdm/external/precipitation.asc"
+# [3] "C:/R-3.6.3/library/sdm/external/temperature.asc"  
+# [4] "C:/R-3.6.3/library/sdm/external/vegetation.asc"   
+
+abbiamo 4 files/layer ASCII nella lista
+ne facciamo un singolo oggetto con stack (chiamato preds)
+
+Predittori: variabili per prevedere quella che sarà la distribuzione della nostra specie
+
+cl <- colorRampPalette(c('blue','orange', 'red', 'yellow'))(100)
+plot(preds, col=cl)
+
+plot(preds$elevation, col=cl)
+points(species[species$Occurrence == 1,],pch=16)
+prendiamo i punti dove occorrenze=1, quindi solo punti dove la specie è presente
+(low elevation, la specie in questione non ama la montagna)
+
+plot(preds$temperature, col=cl)
+points(species[species$Occurrence == 1,],pch=16)
+le piacciono le temperature medio-alte
+
+plot(preds$precipitation, col=cl)
+points(species[species$Occurrence == 1,],pch=16)
+situazione intermedia
+
+plot(preds$vegetation, col=cl)
+points(species[species$Occurrence == 1,],pch=16)
+la specie predilige l'ombreggiatura
+
+
+creiamo un modello lineare che raccolga tutte queste variabili (attraverso un'equazione)
+GLM (Generalized Linear Model)
+
+# MODEL
+
+d <- sdmData(formula=Occurrence~., train=species, predictors=preds)
+d
+# class                                 : sdmdata 
+# =========================================================== 
+# number of species                     :  1 
+# species names                         :  Occurrence 
+# number of features                    :  4 
+# feature names                         :  elevation, precipitation, temperature, ... 
+# type                                  :  Presence-Absence 
+# has independet test data?             :  FALSE 
+# number of records                     :  200 
+# has Coordinates?                      :  TRUE 
+
+train: tutti i dati raccolti a terra
+predictors: variabili (4)
+la tilde serve per indicare l'uguale nei modelli
+
+funzione sdmdata
+
+m1 <- sdm(Occurrence ~ elevation+precipitation+temperature+vegetation, data=d, methods='glm')
+
+p1 <- predict(m1, newdata=preds)
+funzione predict: facciamo una mappa previsionale del modello
+
+plot(p1,col=cl)
+points(species[species$Occurrence == 1,], pch=16)
+
+
+####################################################################################################
+
+#EXAM
+
+# Here put your code
 
