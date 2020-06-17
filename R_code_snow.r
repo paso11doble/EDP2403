@@ -53,7 +53,8 @@ plot(snow.multitemp$snow2020r,col=cl)
 par(mfrow=c(1,2))
 plot(snow.multitemp$snow2000r,col=cl,zlim=c(0,250))
 plot(snow.multitemp$snow2020r,col=cl,zlim=c(0,250))
-# impostiamo la "zlim":le mappe ora hanno la stessa legenda sulla destra: prima era diversa
+# IMPOSTANDO "zlim" LE MAPPE ORA HANNO LA MEDESIMA LEGENDA SULLA DESTRA (PRIMA ERA DIVERSA!)
+
 
 # DIFFERENCE
 diffsnow = snow.multitemp$snow2020r - snow.multitemp$snow2000r
@@ -61,8 +62,8 @@ cldiff <- colorRampPalette(c('blue','white','red'))(100)
 plot(diffsnow, col=cldiff)
 
 
-# PREDICTION (PREVSIONE PER 2025)
-# go to IOL and download code "prediction.r" into folder "snow"
+# PREDICTION (PREVISIONE PER 2025)
+# go to IOL and download "prediction.r" into folder "snow"
 
 source("prediction.r")
 # FUNZIONE "source": SERVE PER CARICARE CODICI DALL'ESTERNO
