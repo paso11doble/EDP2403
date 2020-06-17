@@ -1,30 +1,30 @@
 # R CODE FOR MULTITEMPORAL ANALYSIS:
 # ANALISI MULTITEMPORALE DI VARIAZIONE DELLA COPERTURA DEL SUOLO (1) (29/04/20)
 
-# file deforestazione Foresta Amazzonica, Mato Grosso, BR
+# FILE DEFORESTAZIONE FORESTA AMAZZONICA, MATO GROSSO, BR
 
 setwd("C:/LAB/")
 
 library(raster)
 
-# funzione "brick": dobbiamo caricare dati dall'esterno su più livelli 
+# FUNZIONE "brick": DOBBIAMO CARICARE DATI DALL'ESTERNO SU DIVERSI LIVELLI 
 defor1 <- brick("defor1_.jpg")
 defor2 <- brick("defor2_.jpg")
 
-# selezionando "defor1": troviamo al suo interno 3 bande
+# SELEZIONANDO "defor1": TROVIAMO AL SUO INTERNO 3 BANDE
 # names: defor1_.1, defor1_.2, defor1_.3 
 # defor1_.1 => NIR
 # defor1_.2 => red
 # defor1_.3 => green
 
-# plot: associamo le 3 bande alle componenti RGB
+# PLOT: ASSOCIAMO LE 3 DATE ALLE COMPONENTI "RGB"
 plotRGB(defor1,r=1, g=2, b=3, stretch="Lin")
 
 # Exercise: plot 2° data
 plotRGB(defor2,r=1, g=2, b=3, stretch="Lin")
 
-# N.B. confrontando le 2 foto, il fiume risulta di due colori diversi:
-# l'acqua pura assorbe completamente IR e diventa nera; questo perché nel fiume ci sono più solidi disciolti 
+# N.B. CONFRONTANDO LE FOTO, IL FIUME RISULTA DI DUE COLORI DIVERSI:
+# L'ACQUA PURA ASSORBE COMPLETAMENTE IR E DIVENTA NERA; QUESTO PERCHE' NEL FIUME CI SONO PIU' SOLIDI DISCIOLTI 
 
 # plot delle 2 foto
 par(mfrow=c(2,1))
@@ -34,12 +34,12 @@ plotRGB(defor2,r=1, g=2, b=3, stretch="Lin")
 
 # CLASSIFICAZIONE NON SUPERVISIONATA (di defor1)
 
-# funzione "unsuperClass": è una funzione del pacchetto RStoolbox
+# "unsuperClass": E' UNA FUNZIONE DEL PACCHETTO RStoolbox
 library(RStoolbox)
 
 d1c <- unsuperClass(defor1, nClasses=2)
 
-# dopo aver selezionato "d1c" faccio "d1c$map": la mappa deve essere legata al dataset
+# DOPO AVER SELEZIONATO "d1c" SCRIVO "d1c$map": LA MAPPA DEVE ESSERE LEGATA AL DATASET
 
 plot(d1c$map)
 
@@ -50,7 +50,7 @@ cl <- colorRampPalette(c('green','black'))(100) #
 plot(d1c$map, col=cl)
 
 
-# esempio significativo del "$"
+# ESEMPIO SIGNIFICATIVO DEL "$"
 # mappageologica <- geomap(im_sat, nClasses=...)
 # plot(mappageologica$lito)
 # plot(mappageologica$lineaments)
@@ -64,11 +64,11 @@ plot(d2c$map)
 cl <- colorRampPalette(c('black','green'))(100) #
 plot(d2c$map, col=cl)
   
-# plot delle 2 mappe ottenute
+# PLOT DELLE 2 MAPPE OTTENUTE
 par(mfrow=c(2,1))
 plot(d1c$map, col=cl)
 plot(d2c$map, col=cl)
-# oppure
+# OPPURE
 par(mfrow=c(1,2))
 plot(d1c$map, col=cl)
 plot(d2c$map, col=cl)
@@ -76,7 +76,7 @@ plot(d2c$map, col=cl)
 
 # MAPPA 1 (FREQUENZE E PERCENTUALE)
 
-# funzione "freq": serve per calcolare la frequenza dei valori
+# "freq": SERVE PER CALCOLARE LA FREQUENZA DEI VALORI
 freq(d1c$map)
 
 #      value  count
@@ -137,7 +137,7 @@ View(output)
 setwd("C:/LAB/")
 
 load("defor.RData")        
-# vedi appunti prec. oppure download da IOL
+# VEDI APPUNTI PREC. OPPURE DOWNLOAD DA IOL
 
 ls()
 
@@ -157,12 +157,12 @@ output
 library(ggplot2)
 
 ggplot(output, aes(x=cover, y=before, color=cover)) + geom_bar(stat="identity", fill="white")
-# rispettivamente: data, aestetics + type
-# vedi rif. appunti "Point Patterns"
+# RISPETTIVAMENTE: DATA, AESTETICS + TYPE
+# VEDI RIF. APPUNTI "Point Patterns"
 
-# x= copertura (agricoltura + foresta)
-# y= % copertura prima della deforestazione
-# identity: il riferimento è la colorazione (=copertura)
+# x= COPERTURA (AGRICOLTURA + FORESTA)
+# y= % COPERTURA PRE-DEFORESTAZIONE
+# identity: RIFERITO ALLA COLORAZIONE (=COPERTURA)
 
 # Exercise: plot the histograms of the land cover AFTER deforestation
 ggplot(output, aes(x=cover, y=after, color=cover)) + geom_bar(stat="identity", fill="white")
@@ -170,7 +170,7 @@ ggplot(output, aes(x=cover, y=after, color=cover)) + geom_bar(stat="identity", f
 
 install.packages("gridExtra") 
 library(gridExtra)
-# N.B. funzione "par" con ggplot non funziona!
+# N.B. FUNZIONE "par" CON "ggplot" NON FUNZIONA!
 
 # grid.arrange(plot1, plot2, nrow = 1)
 
@@ -183,7 +183,8 @@ grid.arrange(grafico1, grafico2, nrow = 1)
 -----------------------------------------------------------------------------------------------------------------------
 
 # ANALISI MULTITEMPORALE DI VARIAZIONE DELLA COPERTURA DEL SUOLO (3) (06/05/20)
-# REVIEW: vedi rif. 05/05/20
+
+# REVIEW: VEDI RIF. 05/05/20
 
 setwd("C:/LAB/")
 require(raster)
@@ -209,7 +210,7 @@ grid.arrange(grafico1, grafico2, nrow = 1)
 
 grafico1 <- ggplot(output, aes(x=cover, y=before, color=cover)) + geom_bar(stat="identity", fill="white") + ylim(0, 100)
 grafico2 <- ggplot(output, aes(x=cover, y=after, color=cover)) + geom_bar(stat="identity", fill="white") + ylim(0, 100)
-# in questo modo con "ylim" abbiamo uniformato gli estremi sulle ordinate degli istogrammi
+# IN QUESTO MODO CON "ylim" ABBIAMO UNIFORMATO GLI ESTREMI SULLE COORDINATE DEGLI ISTOGRAMMI
 
 # Exercise: use "grid.arrange" to plot the two graphs 
 grid.arrange(grafico1, grafico2, nrow = 1)
