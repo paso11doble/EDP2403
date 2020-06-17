@@ -1,41 +1,41 @@
-# R SPATIAL: CREAZIONE DI UN CODICE SPAZIALE (25/03/20)
+# R SPATIAL 2: CREAZIONE DI UN CODICE SPAZIALE (25/03/20)
 
-# Funzioni primarie del pacchetto "sp"
+# FUNZIONI PRIMARIE DEL PACCHETTO "sp" (ES. CON "MEUSE") 
 install.packages("sp")
 library(sp)
 data(meuse)
 head(meuse)
 
-# se volessi vedere i nomi delle colonne in alternativa a "head" posso usare: names(meuse)
+# SE VOLESSI VEDERE I NOMI DELLE COLONNE IN ALTERNATIVA A "head" POSSO USARE: names(meuse)
 
-# come definire le coordinate del dataset: coordinates(meuse)=~x+y 
+# COME DEFINIRE LE COORDINATE DEL DATASET: coordinates(meuse)=~x+y 
+# N.B. USARE LA TILDE
 
-
-# come plottare i dati nello spazio (in questo caso dello zinco): spplot(meuse, "zinc")
+# COME PLOTTARE I DATI NELLO SPAZIO (ES. CON ZINCO): spplot(meuse, "zinc")
 
 # Exercise: fare spplot dei dati del rame
 spplot(meuse, "copper")
 
 
-# una possibile funzione per lavorare sui dati del plot: bubble
+# "bubble": POSSIBILE FUNZIONE PER LAVORARE SUI DATI DEL PLOT
 bubble(meuse, "zinc")
 
 # Exercise: creare un bubble del rame colorato di rosso
 bubble(meuse, "copper", col="red")
 
                       
-# array: è una funzione che consiste di una serie di numeri                      
+# "array": FUNZIONE CHE CONSISTE DI UNA SERIE DI NUMERI                     
 
-# foraminiferi, carbon capture (argomenti di tesi triennale di Sofia e Marco)
+# FORAMINIFERI E CARBON CAPTURE (ARGOMENTI TESI TREINNALE DI SOFIA E MARCO)
 foram <- c(10, 20, 35, 55, 67, 80)
 carbon <- c(5, 15, 30, 70, 85, 99)
 
-# I dati sono collegati tra loro? Sì, sono in correlazione
+# I DATI SONO COLLEGATI TRA LORO? SI', SONO IN CORRELAZIONE
 plot(foram, carbon, col="green", pch=19, cex=2)
 
 
 # DATI DALL'ESTERNO SUL COVID-19
 
-# cartella da creare su Windows: Disco locale(C:)/LAB
-# percorso (path) per Windows: setwd("C:/LAB") (w.d. = working directory)
-# funzione per leggere la tabella: covid <- read.table("covid_agg.csv", head=TRUE)
+# CREARE CARTELLA SU WINDOWS: Disco locale(C:)/LAB
+# PERCORSO/PATH PER WINDOWS: setwd("C:/LAB") (w.d. = WORKING DIRECTORY)
+# FUNZIONE PER LEGGERE LA TABELLA: covid <- read.table("covid_agg.csv", head=TRUE)
