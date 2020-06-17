@@ -1,21 +1,20 @@
 # R CODE FOR SATELLITE IMAGES ANALYSIS:
 # ANALISI DI TELERILEVAMENTO (1) (07/04/20)
 
-install.packages("raster")
-library(raster)
+install.packages("raster") / library(raster)
 
 setwd("C:/LAB/")
 
 p224r63 <- brick("p224r63_2011_masked.grd")  
-# funzione "brick": permette di caricare più dati dall'esterno e di associarli ad un'unica immagine
-# es. per immagini satellitari (ortofoto)
+# FUNZIONE "brick": PERMETTE DI CARICARE PIU' DATI DALL'ESTERNO E DI ASSOCIARLI AD UN'UNICA IMMAGINE
+# AD ES. PER IMMAGINI SATELLITARI
 
 p224r63_2011 <- brick("p224r63_2011_masked.grd")
 # (p=path; r=row; grd=greed, "griglia")
 
 plot(p224r63_2011)
 
-# selezionando "p224r63_2011" e osservando la voce "names" si possono notare 7 bande:
+# SELEZIONANDO "p224r63_2011" ED OSSERVANDO LA VOCE "names" SI POSSONO NOTARE 7 BANDE:
 #Banda 1: blue
 #Banda 2: green
 #Banda 3: red
@@ -52,9 +51,9 @@ names(p224r63_2011)
 
 clb <- colorRampPalette(c('dark blue','blue','light blue'))(100) # 
 plot(p224r63_2011$B1_sre, col=clb)
-# attach(dataframe) non funziona con il pacchetto "raster"
-# con "$" allego la colonna (in questo caso Banda 1) all'immagine satellitare (dataset) 
-# "sre" è il sensore
+# "attach(dataframe)" NON FUNZIONA COL PACCHETTO "raster"
+# CON "$" ALLEGO LA COLONNA (in questo caso Banda 1) ALL'IMMAGINE SATELLITARE (dataset) 
+# "sre" E' IL SENSORE
 
 # Exercise: plottare la banda del NIR con colorRampPalette dal rosso, all'arancione, al giallo
 clnir <- colorRampPalette(c('red','orange','yellow'))(100) #
@@ -63,7 +62,7 @@ plot(p224r63_2011$B4_sre, col=clnir)
 
 # MULTIFRAME 
 
-# plot di bande di colori diversi
+# PLOT DI BANDE DI COLORI DIVERSI
 par(mfrow=c(2,2))
 
 # blue
@@ -83,15 +82,14 @@ clnir <- colorRampPalette(c('red','orange','yellow'))(100) #
 plot(p224r63_2011$B4_sre, col=clnir)
 
 dev.off()
-# fa sparire l'ultimo plot creato
+# FA SPARIRE L'ULTIMO PLOT CREATO
 
 
 # NATURAL COLOURS MULTIFRAME 
 
-# plot dell'immagine a colori in base a come li vedrebbe l'occhio umano
-# 3 componenti: R-G-B
-# 3 bande: R = banda del rosso, G = b. del verde, B = b. del blu
-# N.B. "RGB" in Maiuscolo, R è case sensitive!
+# PLOT DELL'IMMAGINE A COLORI IN BASE A COME LI VEDREBBE L'OCCHIO UMANO
+# 3 COMPONENTI/BANDE: R = banda del rosso, G = b. del verde, B = b. del blu
+# N.B. "RGB" IN MAIUSCOLO, R E' CASE SENSITIVE!
 plotRGB(p224r63_2011, r=3, g=2, b=1) 
 
 #B1: blue => 1
@@ -99,11 +97,11 @@ plotRGB(p224r63_2011, r=3, g=2, b=1)
 #B3: red => 3
 #B4: NIR => 4
 
-# immagine a colori naturali
+# IMM. COLORI NATURALI
 plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="Lin")
 
 # NIR
-# immagine a colori falsati (scaliamo i colori di 1, inseriamo la Banda NIR)
+# IMM. COLORI FALSATI (SCALIAMO I COLORI DI 1, INSERENDO NIR)
 plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
 
 
@@ -117,7 +115,7 @@ par(mfrow=c(1,2))
 plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="Lin")
 plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
 
-# NIR nella componente red (vedi es. sopra)
+# NIR nella componente red (VEDI SOPRA)
 plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
 
 # Exercise: NIR nella componente green
@@ -142,8 +140,8 @@ ls()
 # [7] "meuse"              "p224r63"            "p224r63_2011"      
 # [10] "panel.correlations" "panel.smoothing"   
 
-# dobbiamo importare "p224r63_1988_masked.grd"    
-# analizziamo i dati relativi al 1988 (dati 08/04 relativi al 2011)
+# DOBBIAMO IMPORTARE "p224r63_1988_masked.grd"    
+# ANALIZZIAMO I DATI RELATIVI AL 1988 (DATI 08/04 RELATIVI AL 2011)
 
 p224r63_1988 <- brick("p224r63_1988_masked.grd")
 plot(p224r63_1988)
@@ -186,8 +184,7 @@ plotRGB(p224r63_1988, r=4, g=2, b=1, stretch="Lin")
 plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="Lin")
 
 
-# COMPARISON BETWEEN THE IMAGES 
-# confronto 1988-2011
+# COMPARISON BETWEEN THE IMAGES (1988-2011)
 
 par(mfrow=c(2,1))         
 plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="Lin", main="1988")
@@ -229,18 +226,17 @@ plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="Lin")
 plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")       
 plot(difdvi, col=cldifdvi)
            
-# col passare del tempo gran parte dell'area è stata destinata a scopi agricoli
+# COL PASSARE DEL TEMPO GRAN PARTE DELL'AREA E' STATA DESTINATA A SCOPI AGRICOLI
 
 
-# CHANGING THE GRAIN
-# cambio della risoluzione delle immagini
+# CHANGING THE GRAIN (CAMBIO RISOL. IMMAGINI)
 
 p224r63_2011lr <- aggregate(p224r63_2011, fact=10) 
 
 p224r63_2011   
-# digitando il nome dell'immagine possiamo vederne le caratteristiche; come cambia la risoluzione?       
+# GUARDANDO LE CARATTERISTICHE DELL'IMMAGINE, COME CAMBIA LA RISOLUZIONE?
 p224r63_2011lr  
-# la risoluzione da 30x30m è passata a 300x300m
+# LA RISOLUZIONE DA 30X30m E' PASSATA A 300x300m
 
 par(mfrow=c(2,1))         
 plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin") 
@@ -250,7 +246,7 @@ plotRGB(p224r63_2011lr, r=4, g=3, b=2, stretch="Lin")
 
 p224r63_2011lr50 <- aggregate(p224r63_2011, fact=50) 
 p224r63_2011lr50
-# la risoluzione da 30x30m è passata a 1500x1500m
+# LA RISOLUZIONE DA 30X30m E' PASSATA A 1500x1500m
 
 par(mfrow=c(3,1))  
 plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin") 
