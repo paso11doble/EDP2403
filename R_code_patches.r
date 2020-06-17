@@ -5,8 +5,8 @@
 library(raster)
 
 # BREVE REVIEW:
-# RASTER CON TANTI LIVELLI, ES. IMMAGINI SATELLITARI -> "brick"
-# RASTER SINGOLO, ES. MAPPA CLASSIFICATA -> "raster"
+# RASTER CON TANTI LIVELLI -> "brick"
+# RASTER SINGOLO -> "raster"
 
 d1c <- raster("d1c.tif")
 d2c <- raster("d2c.tif")
@@ -40,7 +40,7 @@ plot(d1c)
 plot(d2c)
 
 
-# FUNZIONE "clump": SERVE PER AGGREGARE LE PATCHES
+# FUNZIONE "clump": SERVE PER AGGREGARE LE PATCHES (LEGATA AD "igraph")
 
 # creating patches
 install.packages("igraph")
