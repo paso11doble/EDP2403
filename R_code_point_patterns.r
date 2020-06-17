@@ -1,9 +1,8 @@
 # R CODE FOR POINT PATTERN ANALYSIS: 
 # PATTERN LEGATI AI PUNTI (1) (31/03/20)
 
-install.packages("ggplot2")    
-install.packages("spatstat")
-# se il pacchetto fosse già presente: library(ggplot2) oppure require(ggplot2); lo stesso per spatstat
+install.packages("ggplot2") / require(ggplot2)
+install.packages("spatstat") / require(spatstat)
 
 setwd("C:/LAB/")
 
@@ -17,7 +16,7 @@ plot(covid$country, covid$cases)
 # attach(covid)
 # plot(country, cases)
 
-# funzione "las": serve per cambiare la disposizione delle etichette
+# FUNZIONE "las": SERVE PER CAMBIARE DISPOSIZIONE DELLE ETICHETTE
 plot(covid$country, covid$cases, las=0)  # parallele agli assi
 plot(covid$country, covid$cases, las=1)  # orizzontali
 plot(covid$country, covid$cases, las=2)  # perpendicolari
@@ -25,7 +24,7 @@ plot(covid$country, covid$cases, las=3)  # verticali
 
 plot(covid$country, covid$cases, las=3)  # vertical labels
 
-# funzione "cex.axis": serve per diminuire la dimensione delle etichette
+# FUNZIONE "cex.axis": SERVE PER DIMINUIRE DIMENSIONE DELLE ETICHETTE
 plot(covid$country, covid$cases, las=3, cex.lab=0.5, cex.axis=0.5)  # vertical labels
 
 
@@ -36,13 +35,13 @@ head(mpg)
 ggplot(mpg, aes(x=displ,y=hwy)) + geom_point()
 ggplot(mpg, aes(x=displ,y=hwy)) + geom_line()
 ggplot(mpg, aes(x=displ,y=hwy)) + geom_polygon()
-# 1) data (il file da utilizzare è "mpg")
-# 2) aestetics (variabili che compongono l'estetica del grafico)
-# 3) type (definisce la geometria, indicata dopo il +)
+# 1) DATA (ES. CON FILE "mpg")
+# 2) AESTETICS (VARIABILI CHE COMPONGONO L'ESTETICA DEL GRAFICO)
+# 3) TYPE (DEFINISCE LA GEOMETRIA, INDICATA SEMPRE DOPO IL +)
 
 # ggplot di covid
 ggplot(covid, aes(x=lon, y=lat, size=cases)) + geom_point()
-# si tratta di una media dati di ogni Paese, di cui si prende come riferimento il centroide
+# SI TRATTA DI UNA MEDIA DATI DI OGNI PAESE, DI CUI SI PRENDE COME RIFERIMENTO IL CENTROIDE
 
 
 # density
@@ -58,28 +57,28 @@ d <- density(covids)
 plot(d)
 
 points(covids)
-# funzione per inserire i centroidi
-# prima però occorre selezionare "plot(covids)" affinché R prenda il comando senza errori!
-# la mappa è relativa ai dati Covid di febbraio!
+# FUNZIONE PER INSERIRE I CENTROIDI
+# PRIMA PERO' OCCORRE SELEZIONARE "plot(covids)"!
+# LA MAPPA E' RELATIVA AI DATI COVID DI FEBBRAIO
 
 -----------------------------------------------------------------------------------------------------------------------
 
 # PATTERN LEGATI AI PUNTI (2) (01/04/20)
 
-# Save the "RData" (file salvato in "LAB")
+# Save the "RData" (IN "LAB")
 
 setwd("C:/LAB/")                                                              
 
 load("point_pattern.RData") 
 
 ls()  
-# funzione per vedere cosa contiene il file
+# SPECIFICA COSA CONTIENE IL FILE
 
 
 plot(d)
 cl <- colorRampPalette(c('yellow', 'orange', 'red')) (100)
 plot(d, col=cl)
-# "Palette" è una gamma di colori scelti per rappresentare una mappa
+# "Palette": E' UNA GAMMA DI COLORI SCELTA PER RAPPRESENTARE UNA MAPPA
 
 # Exercise: plot della mappa della densità dal verde al blu
 cl <- colorRampPalette(c('green', 'light blue', 'blue')) (100)
@@ -89,11 +88,11 @@ points(covids)
 
 
 coastlines <- readOGR("ne_10m_coastline.shp") 
-# N.B. devo utilizzare una funzione della libreria "rgdal", per leggere files vettoriali
-# quindi prima di dare il comando "readOGR" devo fare: install.packages("rgdal") oppure library(rgdal)
+# N.B. DEVO UTILIZZARE UNA FUNZIONE DELLA LIBRERIA "rgdal", PER LEGGERE FILES VETTORIALI
+# PRIMA DI DARE IL COMANDO "readOGR" DEVO SELEZIONARE: install.packages("rgdal") / library(rgdal)
 
 plot(coastlines, add=T)
-# in questo modo inseriamo le coastlines e le aggiungiamo al plot precedente
+# IN QUESTO MODO INSERIAMO LE COASTLINES E LE AGGIUNGIAMO AL PLOT PRECEDENTE
 
 
 # Exercise: plot della mappa della densità con una nuova colorazione; aggiungere poi le coastlines
@@ -101,7 +100,7 @@ cl <- colorRampPalette(c('blue', 'light blue', 'light green', 'yellow')) (100)
 plot(d, col=cl)
 plot(coastlines, add=T, col="green")
 
-# ovviamente posso fare in vari modi scegliendo colori e gamme di colori (indicate tra parentesi)...
+# OVVIAMENTE POSSO FARE IN VARI MODI SCEGLIENDO TRA VARI COLORI E GAMME (INDICATE NELLA SECONDA PARENTESI)
 
 cl2 <- colorRampPalette(c('red', 'orange', 'yellow', 'green', 'blue')) (800)
 plot(d, col=cl2)
@@ -147,13 +146,13 @@ plot(coastlines, add=T)
 # ANALISI D'INTERPOLAZIONE
 
 head(covid)
-# con "covid" o "view(covid)" posso vedere tutta la tabella
+# CON "covid" / "view(covid)" POSSO VEDERE TUTTA LA TABELLA
 
 marks(covids) <- covid$cases
 
 s <- Smooth(covids)
 plot(s)
-# funzione "Smooth": serve per creare una mappa "continua", lineare dei casi
+# FUNZIONE "Smooth": SERVE PER CREARE UNA MAPPA "CONTINUA", LINEARE DEI CASI
 
 # Exercise: plot(s) con points e coastlines
 cl5 <- colorRampPalette(c('cyan', 'purple', 'red')) (200)
@@ -200,11 +199,11 @@ summary(Tesi)
 # x (Longitude): varia da 12.42 a 12.46
 # y (Latitude): varia da 43.91 a 43.94
 
-# per creare il point pattern: x, y, c(xmin, xmax), c(ymin, ymax)
+# PER CREARE IL POINT PATTERN: x, y, c(xmin, xmax), c(ymin, ymax)
 Tesippp <- ppp(Longitude, Latitude, c(12.41, 12.47), c(43.9, 43.95)) 
 # abbiamo esteso un pò i margini...
 
-# per la densità: usare la funzione "density"
+# PER LA DENSITA': USARE LA FUNZIONE "density"
 dT <- density(Tesippp)
 plot(dT)
 points(Tesippp, col="green")
@@ -229,16 +228,16 @@ points(Tesippp, col="green")
 head(Tesi)
 
 marks(Tesippp) <- Tesi$Species_richness
-# funzione "marks" (vedi sopra): associa i valori della variabile che vogliamo interpolare (es. Species richness) al point pattern
-# (quindi 48 e 43 per Montalbo1 e Montalbo2)
+# FUNZIONE "marks": ASSOCIA I VALORI DELLA VARIABILE CHE VOGLIAMO INTERPOLARE (es. Species richness) AL POINT PATTERN
+# (QUINDI 48 E 43 PER MONTALBO1 E MONTALBO2)
 
-# per vedere le eventuali variazioni: funzione "smooth"
+# PER VEDERE LE EVENTUALI VARIAZIONI: "Smooth"
 interpol <- Smooth(Tesippp)
 
 plot(interpol)
 
 points(Tesippp, col="green")
-# prima però occorre selezionare "plot(Tesippp)" affinché R prenda il comando senza errori!
+# PRIMA PERO' OCCORRE SELEZIONARE "plot(Tesippp)"!
 
 
 library(rgdal)
@@ -246,11 +245,11 @@ sanmarino <-  readOGR("San_Marino.shp")
 
 plot(sanmarino)
 plot(interpol, add=T)
-# aggiungo la mappa "interpol" alla precedente
+# AGGIUNGO LA MAPPA "interpol" ALLA PRECEDENTE
 
 points(Tesippp, col="green") 
 plot(sanmarino, add=T)
-# così sovrappongo i confini RSM alle mappe precedenti
+# COSI' SOVRAPPONGO I CONFINI RSM ALLE MAPPE PRECEDENTI
 
 
 # Exercise: plot multiframe (2 righe, 1 colonna) di densità e interpolazione (con titolo, quindi main="...")
