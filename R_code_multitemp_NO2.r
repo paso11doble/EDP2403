@@ -5,7 +5,7 @@ setwd("C:/LAB/")
 
 library(raster)
 
-# funzione "raster": si usa per importare singole immagini satellitari
+# FUNZIONE "raster": SI USA PER IMPORTARE SINGOLE IMMAGINI SATELLITARI
 EN01 <- raster("EN_0001.png")
 plot(EN01)
 
@@ -46,15 +46,15 @@ plot(EN13, col=cl)
 
 
 # MULTITEMPORAL ANALYSIS
-# Difference: last image - first image
+# DIFFERENCE: LAST IMAGE - FIRST IMAGE
 
 difno2 <- EN13 - EN01
 
 cldif <- colorRampPalette(c('blue','black','yellow'))(100) # 
 plot(difno2, col=cldif)
 
-# blue: differenze minori NO2 
-# yellow: differenze maggiori NO2
+# BLUE: DIFFERENZE MINORI NO2 
+# YELLOW: DIFFERENZE MAGGIORI NO2
 
 # Exercise: plot all the images
 par(mfrow=c(4,4))
@@ -71,7 +71,7 @@ plot(EN10, col=cl)
 plot(EN11, col=cl)
 plot(EN12, col=cl)
 plot(EN13, col=cl)
-# N.B. le immagini sono 13, quindi col "par" dobbiamo selezionare 4 righe e 4 colonne!
+# N.B. LE IMMAGINI SONO 13, QUINDI CON "par" DOBBIAMO SELEZIONARE 4 RIGHE E 4 COLONNE!
 
 -----------------------------------------------------------------------------------------------------------------------
 
@@ -81,10 +81,8 @@ setwd("C:/LAB/")
 
 library(raster)
 
-load("multitemp.NO2")
-
-# oppure download da IOL: 
-load("EN.RData")
+load("multitemp.NO2") 
+# OPPURE DOWNLOAD DA IOL: load("EN.RData")
 
 ls()
 #  [1] "after"              "before"             "cl"                
@@ -100,13 +98,13 @@ ls()
 # [31] "percent1"           "percent2"           "totd1"             
 # [34] "totd2"             
 
-# funzione "lapply": non viene applicata ad un singolo file ma formula un "ciclo", apporta assieme diversi dati/vettori
-
+# FUNZIONE "lapply": NON VIENE APPLICATA AD UN SINGOLO FILE MA FORMULA UN "CICLO"; 
+# IN ALTRE PAROLE UNA QUALSIASI FUNZIONE VIENE APPLICATA AD UNA LISTA
 
 setwd("C:/LAB/esa_NO2")
-# creare una cartella all'interno di LAB ("esa_NO2") e importarvi tutti i 13 PNG
+# CREARE UNA NUOVA CARTELLA ALL'INTERNO DI "LAB" ("esa_NO2") ED IMPORTARVI TUTTI I 13 PNG
 
-# funzione "list.files": serve per fare una lista di files con attributi simili (in questo caso PNG)
+# FUNZIONE "list.files": SERVE PER FARE UNA LISTA DI FILES CON ATTRIBUTI SIMILI (ES. PNG)
 rlist <- list.files(pattern=".png")
 
 rlist                                                     
@@ -114,16 +112,16 @@ rlist
 #  [6] "EN_0006.png" "EN_0007.png" "EN_0008.png" "EN_0009.png" "EN_0010.png"
 # [11] "EN_0011.png" "EN_0012.png" "EN_0013.png"
 
-# in questo modo visualizziamo solo i PNG
+# VISUALIZZIAMO SOLO I PNG
 
 
-# alla funzione "lapply" associamo "raster" (per le singole immagini)
+# A "lapply" ASSOCIAMO "raster" (-> SINGOLE IMMAGINI)
 listafinale <- lapply(rlist, raster)
 
 listafinale
 
 
-# funzione "stack": dalle 13 immagini satellitari creiamo un'unica banda
+# FUNZIONE "stack": DALLE IMMAGINI SATELLITARI CREA UN'UNICA BANDA
 EN <- stack(listafinale)
 
 cl <- colorRampPalette(c('red','orange','yellow'))(100) # 
@@ -147,7 +145,7 @@ EN <- stack(listafinale)
 # stack
  
 difEN <- EN$EN_0013 - EN$EN_0001
-# differenza tra il valore del pixel della 13ma immagine e il valore della 1a
+# DIFFERENZA TRA IL VALORE DEL PIXEL DELLA 13ma IMMAGINE E IL VALORE DELLA 1a
  
 cld <- colorRampPalette(c('blue','white','red'))(100) # 
 plot(difEN, col=cld)
@@ -155,7 +153,7 @@ plot(difEN, col=cld)
 
 cl <- colorRampPalette(c('red','orange','yellow'))(100) # 
 plot(EN, col=cl) 
-# plot dell'intero set
+# PLOT INTERO SET
 
 boxplot(EN)
 boxplot(EN,horizontal=T)
