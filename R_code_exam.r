@@ -9,6 +9,8 @@
 
 ### 11. R Code Crop (Ritaglio)
 
+funzione "crop": serve per fare un ritaglio su una determinata zona a partire da una scala globale
+
 setwd("C:/LAB/snow")
 
 require(ncdf4)
