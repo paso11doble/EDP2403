@@ -1,6 +1,8 @@
 # R CODE SNOW:
 # ANALISI DELLA COPERTURA NEVOSA NEL TEMPO, SU COPERNICUS (20/05/20)
 
+# DATI EUROPEI AGGIORNATI AL 18/05/20
+
 setwd("C:/LAB/")
 
 install.packages("ncdf4")
@@ -8,8 +10,8 @@ install.packages("ncdf4")
 require(ncdf4)
 require(raster)
 
-# vogliamo importare e visualizzare il file con estensione "NC"
-# 2 funzioni possibili: raster (singolo livello) o brick (più livelli)
+# VOGLIAMO IMPORTARE E VISUALIZZARE IL FILE CON ESTENSIONE "NC"
+# 2 FUNZIONI POSSIBILI: "raster" (->PER SINGOLO LIVELLO) O "brick" (-> PER PIU' LIVELLI O UNO STACK DI DATI)
 
 snowmay <- raster("c_gls_SCE500_202005180000_CEURO_MODIS_V1.0.1.nc")
 
@@ -18,14 +20,14 @@ cl <- colorRampPalette(c('darkblue','blue','light blue'))(100)
 # Exercise: plot snow cover with the cl palette
 plot(snowmay, col=cl)
 
-# ci aspettiamo che questa copertura (aggiornata al 18/05/20 in Europa) diminuisca nel tempo
+# CI ASPETTIAMO CHE QUESTA COPERTURA DIMINUISCA NEL TEMPO
 
 # create new folder in LAB ("snow")
 # import snow data
 
 setwd("C:/LAB/snow")
 
-# vogliamo importare tutti i file: funzione "stack"
+# PER IMPORTARE TUTTI I FILES: "stack"
 
 rlist <- list.files(pattern=".tif")
 
@@ -40,14 +42,14 @@ snow.multitemp <- stack(list_rast)
 
 plot(snow.multitemp, col=cl)
 
-# vogliamo fare un plot delle immagini agli estremi (2000 e 2020); con "$" uniamo le singole immagini allo stack
+# VOGLIAMO FARE UN PLOT DEI "TIF" AGLI ESTREMI (2000 E 2020); CON "$" UNIAMO LE SINGOLE IMMAGINI ALLO STACK
 
 # PLOT
 par(mfrow=c(1,2))
 plot(snow.multitemp$snow2000r,col=cl)
 plot(snow.multitemp$snow2020r,col=cl)
 
-# PLOT WITH LIMITS
+# PLOT WITH LIMITS (zlim)
 par(mfrow=c(1,2))
 plot(snow.multitemp$snow2000r,col=cl,zlim=c(0,250))
 plot(snow.multitemp$snow2020r,col=cl,zlim=c(0,250))
@@ -59,11 +61,11 @@ cldiff <- colorRampPalette(c('blue','white','red'))(100)
 plot(diffsnow, col=cldiff)
 
 
-# PREDICTION (previsione per il 2025)
+# PREDICTION (PREVSIONE PER 2025)
 # go to IOL and download code "prediction.r" into folder "snow"
 
 source("prediction.r")
-# funzione "source": serve per caricare codici dall'esterno
+# FUNZIONE "source": SERVE PER CARICARE CODICI DALL'ESTERNO
 
 predicted.snow.2025.norm <- raster("predicted.snow.2025.norm.tif")
 plot(predicted.snow.2025.norm, col=cl)
