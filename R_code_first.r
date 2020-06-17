@@ -1,11 +1,11 @@
-# prova
+# R CODE FIRST: PRIMO CODICE R ECOLOGIA DEL PAESAGGIO (18/03/20)
 
-# PRIMO CODICE R ECOLOGIA DEL PAESAGGIO (18/03/20)
+# prova
 
 install.packages("sp")
 
 library(sp)
-# un comando alternativo per caricare le librerie: require(sp)
+# UN COMANDO ALTERNATIVO PER CARICARE LE LIBRERIE: require(sp)
 
 data(meuse)
 meuse
@@ -22,22 +22,22 @@ pairs(~ cadmium + copper + lead, data = meuse)
 # Exercise: add zinc to cadmium, copper and lead
 pairs(~ cadmium + copper + lead + zinc, data = meuse)
 
-# "freccia ↑": riprende l'ultimo comando usato
+# "freccia ↑": RIPRENDE L'ULTIMO COMANDO USATO
 
-# "parentesi [...]": servono per fare un subset
+# "parentesi [...]": SERVONO PER FARE UN SUBSET
 pairs(meuse[,3:6])
 
 pairs(meuse[,3:6], col="green")
-# per cambiare colore
+# PER CAMBIARE COLORE
 
 pairs(meuse[,3:6], col="green", pch=19) 
-# per selezionare il "point shape" (o point character)
+# PER SELEZIONARE IL "POINT SHAPE" (O POINT CHARACTER)
 
 pairs(meuse[,3:6], col="green", pch=19, cex=3) 
-# per aumentare le dimensioni dei punti (cex=character exageration)
+# PER AUMENTARE LE DIMENSIONI DEI PUNTI (cex=character exageration)
 
 pairs(meuse[,3:6], col="green", pch=19, cex=3, main="Primo pairs") 
-# per dare un titolo 
+# PER DARE UN TITOLO 
 
 # Exercise: add "elevation" character to the previous
 pairs(meuse[,3:7], col="green", pch=19, cex=3, main="Primo pairs")
@@ -97,7 +97,7 @@ pairs(meuse[,3:6], lower.panel = panel.smoothing, upper.panel = panel.correlatio
 # funzione plot
 
 plot(meuse$cadmium, meuse$copper)
-# "dollaro $": serve per collegare più variabili
+# "dollaro $": SERVE PER COLLEGARE PIU' VARIABILI/LAYER AL DATASET
 
 attach(meuse)
 plot(cadmium, copper)
