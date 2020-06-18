@@ -1613,7 +1613,62 @@ points(species[species$Occurrence == 1,], pch=16)
 ##########################################################################################################################
 ##########################################################################################################################
 
-### EXAM
+##########
+## EXAM ##
+##########
 
 ### Here put your code
 
+setwd("C:/LAB/GreatLakes")
+
+require(ncdf4)
+require(raster)
+
+rlist <- list.files(pattern="GLOBE")
+rlist
+
+LT01 <- raster("c_gls_LSWT_201611010000_GLOBE_SLSTRA_v1.0.2.nc")
+LT02 <- raster("c_gls_LSWT_201704210000_GLOBE_SLSTRA_v1.0.2.nc")
+LT03 <- raster("c_gls_LSWT_201710110000_GLOBE_SLSTRA_v1.0.2.nc")
+LT04 <- raster("c_gls_LSWT_201804010000_GLOBE_SLSTRA_v1.0.2.nc")
+LT05 <- raster("c_gls_LSWT_201809210000_GLOBE_SLSTRA_v1.0.2.nc")
+LT06 <- raster("c_gls_LSWT_201903110000_GLOBE_SLSTRA_v1.0.2.nc")
+LT07 <- raster("c_gls_LSWT_201909010000_GLOBE_SLSTRA_v1.0.2.nc")
+LT08 <- raster("c_gls_LSWT_202002210000_GLOBE_SLSTRA_v1.0.2.nc")
+LT09 <- raster("c_gls_LSWT_202005210000_GLOBE_SLSTRA_v1.0.1.nc")
+
+list_rast <- lapply(rlist, raster)
+LSWT <- stack(list_rast)
+
+cl <- colorRampPalette(c('cyan', 'blue', 'dark blue', 'purple', 'red'))(100)
+
+plot(LSWT, col=cl)
+plot(LT01, col=cl)
+extension <- c(xmin, xmax, ymin, ymax)
+extension <- c(-93, -74, 41, 50)
+Zoom(LT01, ext=extension, col=cl)
+plot(LT01, col=cl, ext=extension)
+zoom(LT01, ext=drawExtent())
+Canada01 <- crop(LT01, extension)
+plot(Canada01, col=cl)
+plot(Canada01, col=cl, main="Great Lakes 01/11/16")
+
+LSWT_Canada <- crop(LSWT, extension)
+plot(LSWT_Canada, col=cl)
+plot(LSWT_Canada, col=cl, zlim=c(270,300))
+
+boxplot(LSWT_Canada, horizontal=T, axes=T, outline=F)
+
+cl <- colorRampPalette(c('cyan', 'blue', 'dark blue', 'purple', 'red'))(100)
+Canada03 <- crop(LT03, extension)
+plot(Canada03, col=cl, main="Great Lakes 11/10/17", zlim=c(270,300))
+Canada07 <- crop(LT07, extension)
+plot(Canada07, col=cl, main="Great Lakes 01/09/19", zlim=c(270,300))
+difTemp <- Canada07 - Canada03
+cldif <- colorRampPalette(c('blue', 'white', 'red'))(100)
+plot(difTemp, col=cldif)
+
+par(mfrow=c(3,1))
+plot(Canada07, col=cl,main="Great Lakes 01/09/19", zlim=c(270,300))
+plot(Canada03, col=cl,main="Great Lakes 11/10/17", zlim=c(270,300))
+plot(difTemp, col=cldif)
