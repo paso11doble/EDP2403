@@ -1612,20 +1612,40 @@ points(species[species$Occurrence == 1,], pch=16)
 ##########################################################################################################################
 ##########################################################################################################################
 ##########################################################################################################################
+                                _________________________________________________________________________
+##########                     |                                                                        |
+## EXAM ##                     | SURFACE WATER TEMPERATURE ANALYSIS IN THE GREAT LAKES BASIN (USA, CAN) |
+##########                     |________________________________________________________________________|                       
 
-##########
-## EXAM ##
-##########
 
-### Here put your code
+# LAGO SUPERIORE
+# LAGO HURON
+# LAGO MICHIGAN
+# LAGO ERIE
+# LAGO ONTARIO
 
+
+# CREARE NUOVA CARTELLA IN "LAB"
 setwd("C:/LAB/GreatLakes")
 
 require(ncdf4)
 require(raster)
 
+# DOWNLOAD DA COPERNICUS DI RILEVAMENTI (FILES ".nc") RELATIVI A TEMP. SUP. DELL'ACQUA DEI LAGHI -> "LSWT"
+# DATI 11/2016 - 05/2020
+# SELEZIONATI A RANDOM, PIU' O MENO OGNI 6 MESI
+
 rlist <- list.files(pattern="GLOBE")
 rlist
+# [1] "c_gls_LSWT_201611010000_GLOBE_SLSTRA_v1.0.2.nc"
+# [2] "c_gls_LSWT_201704210000_GLOBE_SLSTRA_v1.0.2.nc"
+# [3] "c_gls_LSWT_201710110000_GLOBE_SLSTRA_v1.0.2.nc"
+# [4] "c_gls_LSWT_201804010000_GLOBE_SLSTRA_v1.0.2.nc"
+# [5] "c_gls_LSWT_201809210000_GLOBE_SLSTRA_v1.0.2.nc"
+# [6] "c_gls_LSWT_201903110000_GLOBE_SLSTRA_v1.0.2.nc"
+# [7] "c_gls_LSWT_201909010000_GLOBE_SLSTRA_v1.0.2.nc"
+# [8] "c_gls_LSWT_202002210000_GLOBE_SLSTRA_v1.0.2.nc"
+# [9] "c_gls_LSWT_202005210000_GLOBE_SLSTRA_v1.0.1.nc"
 
 LT01 <- raster("c_gls_LSWT_201611010000_GLOBE_SLSTRA_v1.0.2.nc")
 LT02 <- raster("c_gls_LSWT_201704210000_GLOBE_SLSTRA_v1.0.2.nc")
@@ -1642,23 +1662,35 @@ LSWT <- stack(list_rast)
 
 cl <- colorRampPalette(c('cyan', 'blue', 'dark blue', 'purple', 'red'))(100)
 
+
+# PLOT GENERALE
 plot(LSWT, col=cl)
+
+# PLOT 1° RILEVAMENTO (2016)
 plot(LT01, col=cl)
+
+
+# FOCUS SUI GRANDI LAGHI -> CROP 1° FOTO
 extension <- c(xmin, xmax, ymin, ymax)
 extension <- c(-93, -74, 41, 50)
-Zoom(LT01, ext=extension, col=cl)
+zoom(LT01, ext=extension, col=cl)
 plot(LT01, col=cl, ext=extension)
 zoom(LT01, ext=drawExtent())
 Canada01 <- crop(LT01, extension)
 plot(Canada01, col=cl)
 plot(Canada01, col=cl, main="Great Lakes 01/11/16")
 
+# CROP INTERO STACK
 LSWT_Canada <- crop(LSWT, extension)
 plot(LSWT_Canada, col=cl)
 plot(LSWT_Canada, col=cl, zlim=c(270,300))
 
+
+# VARIAZIONE TEMP. ACQUA NEGLI ULTIMI 4 ANNI
 boxplot(LSWT_Canada, horizontal=T, axes=T, outline=F)
 
+
+# PLOT VARIAZIONE TEMP. 2019 - 2017
 cl <- colorRampPalette(c('cyan', 'blue', 'dark blue', 'purple', 'red'))(100)
 Canada03 <- crop(LT03, extension)
 plot(Canada03, col=cl, main="Great Lakes 11/10/17", zlim=c(270,300))
@@ -1668,7 +1700,11 @@ difTemp <- Canada07 - Canada03
 cldif <- colorRampPalette(c('blue', 'white', 'red'))(100)
 plot(difTemp, col=cldif)
 
+# PLOT FINALE
 par(mfrow=c(3,1))
 plot(Canada07, col=cl,main="Great Lakes 01/09/19", zlim=c(270,300))
 plot(Canada03, col=cl,main="Great Lakes 11/10/17", zlim=c(270,300))
 plot(difTemp, col=cldif)
+
+# INDICATIVAMENTE QUALI SONO I LAGHI PIU' A RISCHIO A CAUSA DELLA VAR. TEMP.?
+# L. MICHIGAN, ERIE E ONTARIO
