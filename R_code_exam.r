@@ -1,14 +1,37 @@
-###################
-### R CODE EXAM ###
-###################
+#####################                                                                               ######################
+### R_code_exam.r ###                                                                               ### MICHELE PASINI ###
+#####################                                                                               ######################
+                                           ########################################
+                                           ### MODULO DI ECOLOGIA DEL PAESAGGIO ###
+                                           ########################################
+
+# APPUNTI IDENTIFICATI IN MAIUSCOLO
+
+# Copernicus data: https://land.copernicus.vgt.vito.be/PDF/portal/Application.html#Home
+
+# 1. R_code_first.r
+# 2. R_code_spatial.r
+# 3. R_code_spatial2.r
+# 4. R_code_point_pattern.r
+# 5. R_code_teleril.r
+# 6. R_code_landcover.r
+# 7. R_code_multitemp.r
+# 8. R_code_multitemp_NO2.r
+# 9. R_code_snow.r
+# 10. R_code_patches.r
+# 11. R_code_crop.r - Exam Simulation
+# 12. Species Distribution Modelling
+
 
 ##########################################################################################################################
 ##########################################################################################################################
 ##########################################################################################################################
 
-### (11) ## R CODE CROP: COME EFFETTUARE UN "RITAGLIO" (03/06/20)
+##########
+## (11) ## R CODE CROP: COME EFFETTUARE UN "RITAGLIO" (03/06/20)
+##########
 
-funzione "crop": serve per fare un ritaglio su una determinata zona a partire da una scala globale
+# FUNZIONE "crop": SERVE PER FARE UN RITAGLIO SU UNA DETERMINATA ZONA A PARTIRE DA UNA SCALA GLOBALE
 
 setwd("C:/LAB/snow")
 
@@ -30,23 +53,23 @@ clb <- colorRampPalette(c('darkblue','blue','light blue'))(100)
 
 plot(snow.multitemp, col=clb)
 
-# N.B. non c'è bisogno di utilizzare il par
-
+# N.B. NON C'E' BISOGNO DI UTILIZZARE "par"!
 
 
 snow.multitemp
-# dai names selezioniamo il 2010r
+# DAI NOMI SELEZIONIAMO 2010r
+
 plot(snow.multitemp$snow2010r, col=clb)
 
 
-# funzione zoom (esclusiva di raster)
+# FUNZIONE "zoom": PRESENTE NEL PACCHETTO RASTER
 zoom(nome immagine, estensione)
 
-# funzione ext: come definire l'estensione di una certa area
+# FUNZIONE "ext": SERVE PER DEFINIRE L'ESTENSIONE DI UNA CERTA AREA
 extension <- c(xmin, xmax, ymin, ymax)
 
       
-# dove casca l'italia(prima zoom poi crop)
+# DOVE SI TROVA L'ITALIA? (fare prima zoom poi crop)
       
 extension <- c(6, 18, 40, 50)
 zoom(snow.multitemp$snow2010r, ext=extension)
@@ -60,23 +83,24 @@ zoom(snow.multitemp$snow2010r, ext=extension)
 
 plot(snow.multitemp$snow2010r, col=clb)
 zoom(snow.multitemp$snow2010r, ext=drawExtent())
-# disegnare un rettangolo a partire dall'alto a sx dell'area di riferimento
+# DISEGNARE UN RETTANGOLO DALL'ALTO A SX DELL'AREA DI RIFERIMENTO (con "drawEstent()")
 
 # funzione crop
 extension <- c(6, 20, 35, 50)
 snow2010r.italy <- crop(snow.multitemp$snow2010r, extension)
 plot(snow2010r.italy, col=clb)
 
-# Exercise: crop the italy extent on the WHOLE STACK of snow layers (quindi a partire dallo stack SNOW.MULTITEMP)
+# Exercise: crop the Italy extent on the WHOLE STACK of snow layers (quindi a partire dallo stack SNOW.MULTITEMP)
 snow.multitemp.italy <- crop(snow.multitemp, extension)
 plot(snow.multitemp.italy, col=clb)
 
 plot(snow.multitemp.italy, col=clb, zlim=c(20,200))
-# uniformiamo i limiti
+# UNIFORMIAMO I LIMITI (con zlim)
+
 
 # BOXPLOT DELLA COPERTURA NEVOSA
-# vedi rif. multitemp.NO2
-# come varia in media la copertura nevosa negli anni?
+# vedi rif. "multitemp.NO2"
+# COME VARIA IN MEDIA LA COPERTURA NEVOSA NEGLI ANNI?
 
 boxplot(snow.multitemp.italy, horizontal=T, outline=F)
 
@@ -84,8 +108,9 @@ boxplot(snow.multitemp.italy, horizontal=T, outline=F)
 ##########################################################################################################################
 ##########################################################################################################################
 
-### (12) ## SPECIES DISTRIBUTION MODELLING:
-### ANALISI DELLA DISTRIBUZIONE DELLE SPECIE IN UNA DETERMINATA AREA GEOGRAFICA (08/06/20)
+##########
+## (12) ## SPECIES DISTRIBUTION MODELLING:
+########## ANALISI DELLA DISTRIBUZIONE DELLE SPECIE IN UNA DETERMINATA AREA GEOGRAFICA (08/06/20)
 
 install.packages("sdm")
 library(sdm)
@@ -93,13 +118,14 @@ library(sdm)
 library(raster)
 library(rgdal)
 
-
 # SPECIES
 
 file <- system.file("external/species.shp", package="sdm") 
+# CARICHIAMO LO SHAPEFILE "species" DALL'ESTERNO ALL'INTERNO DEL PACCHETTO "sdm"
+
 species <- shapefile(file)
-# carichiamo lo shapefile "species" dall'esterno all'interno del pacchetto "sdm"
-# funzione "shapefile": funzione di "rgdal" (per files vettoriali), serve per mappare la distribuzione di una determinata specie a terra
+# FUNZIONE "shapefile": E' DEL PACCHETTO "rgdal" (-> FILES VETTORIALI)
+# SERVE PER MAPPARE LA DISTRIBUZIONE DI UNA DETERMINATA SPECIE A TERRA
 
 species
 # class       : SpatialPointsDataFrame 
@@ -111,24 +137,24 @@ species
 # min values  :          0 
 # max values  :          1 
 
-N.B. Zone=Fuso -> siamo in Spagna (fuso 30)
+# N.B. ZONE=FUSO -> SPAGNA (FUSO 30)
 
 species$Occurrence
-# "species" è formato da dei punti con coordinate e ogni punto è legato al fatto che la specie sia stata vista o meno
+# "species" E' FORMATO DA DEI PUNTI CON COORDINATE E OGNUNO E' LEGATO AL FATTO CHE LA SPECIE SIA STATA VISTA O MENO (->Occurrence)
 
 plot(species)
 
 plot(species[species$Occurrence == 1,],col='blue',pch=16)
 points(species[species$Occurrence == 0,],col='red',pch=16)
 
-# all'interno del dataset species: le occorrenze sono uguali a 1 -> specie presente (punto blu)
-#                                  le occorrenze sono uguali a 0 -> specie assente (punto rosso)
+# ALL'INTERNO DI "species": OCCORRENZE = 1 -> SPECIE PRESENTE (PUNTO BLU)
+#                           OCCORRENZE = 0 -> SPECIE ASSENTE (PUNTO ROSSO)
 
 
 # MODEL
 
 path <- system.file("external", package="sdm") 
-# importiamo la cartella external all'interno del pacchetto "sdm"
+# IMPORTIAMO LA CARTELLA "external" IN "sdm"
 
 
 # PREDICTORS
@@ -142,33 +168,33 @@ lst
 # [3] "C:/R-3.6.3/library/sdm/external/temperature.asc"  
 # [4] "C:/R-3.6.3/library/sdm/external/vegetation.asc"   
 
-abbiamo 4 files/layer ASCII nella lista
-ne facciamo un singolo oggetto con stack (chiamato preds)
+# ABBIAMO 4 LAYER ASCII NELLA LISTA -> NE FACCIAMO UN SINGOLO OGGETTO CON "stack" -> "preds"
 
-Predittori: variabili per prevedere quella che sarà la distribuzione della nostra specie
+# PREDITTORI: VARIABILI PER PREVEDERE LA PROBABILE DISTRIBUZIONE DELLA NOSTRA SPECIE
 
 cl <- colorRampPalette(c('blue','orange', 'red', 'yellow'))(100)
 plot(preds, col=cl)
 
+# PRENDIAMO SOLO I PUNTI CON OCCORRENZE = 1 -> SPECIE PRESENTE
+
 plot(preds$elevation, col=cl)
 points(species[species$Occurrence == 1,],pch=16)
-prendiamo i punti dove occorrenze=1, quindi solo punti dove la specie è presente
-(low elevation, la specie in questione non ama la montagna)
+# LOW ELEVATION: LA SPECIE IN QUESTIONE PREDILIGE PIANURA/COLLINA
 
 plot(preds$temperature, col=cl)
 points(species[species$Occurrence == 1,],pch=16)
-le piacciono le temperature medio-alte
+# PREDILIGE AMBIENTI CON TEMPERATURE MEDIO-ALTE
 
 plot(preds$precipitation, col=cl)
 points(species[species$Occurrence == 1,],pch=16)
-situazione intermedia
+# PRECIPITAZIONI: SITUAZIONE INTERMEDIA
 
 plot(preds$vegetation, col=cl)
 points(species[species$Occurrence == 1,],pch=16)
-la specie predilige l'ombreggiatura
+# LA SPECIE PREFERISCE L'OMBREGGIATURA
 
 
-creiamo un modello lineare che raccolga tutte queste variabili (attraverso un'equazione)
+# CREIAMO (ATTRAVERSO UN'EQUAZIONE) UN MODELLO LINEARE CHE RACCOLGA TUTTE QUESTE VARIABILI
 GLM (Generalized Linear Model)
 
 # MODEL
@@ -186,16 +212,16 @@ d
 # number of records                     :  200 
 # has Coordinates?                      :  TRUE 
 
-train: tutti i dati raccolti a terra
-predictors: variabili (4)
-la tilde serve per indicare l'uguale nei modelli
+# TRAIN: TUTTI I DATI RACCOLTI A TERRA
+# PREDICTORS: VARIABILI (4)
+# TILDE "~": serve per indicare "=" NEI MODELLI
 
-funzione sdmdata
+# FUNZIONE "sdmData"
 
 m1 <- sdm(Occurrence ~ elevation+precipitation+temperature+vegetation, data=d, methods='glm')
 
 p1 <- predict(m1, newdata=preds)
-funzione predict: facciamo una mappa previsionale del modello
+# FUNZIONE "predict": SERVE PER FARE UNA MAPPA PREVISIONALE DEL MODELLO
 
 plot(p1,col=cl)
 points(species[species$Occurrence == 1,], pch=16)
